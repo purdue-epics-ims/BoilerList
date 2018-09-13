@@ -1,0 +1,70 @@
+{% extends "main/base.html" %}
+{% block content %}
+<div class="panel-heading">
+  Create a job
+</div>
+<div class="jumbotron">
+
+  {% if name %}<b>Job:{{ name }}.  Please check your email for a confirmation message.</b>
+  {% else %}
+  <div class="form-group">
+    <form action="{% url 'job_create' %}" method="post">
+      {% csrf_token %}
+
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-bullhorn"></i>
+        </span>
+        <input class="form-control" type="text" name="name" placeholder="What is the job called?"></input>
+      </div>
+
+      <br/>
+
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-coffee"></i>
+        </span>
+        <textarea class="form-control" name="description" placeholder="Describe what you need done."></textarea>
+      </div>
+
+      <br/>
+
+
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-calendar"></i>
+        </span>
+        <input type="text" class="form-control" placeholder="mm/dd/yyyy Due date" name="duedate"></input>
+      </div>
+
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-institution"></i>
+        </span>
+
+        {{form.organization}}
+
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-check-circle-o"></i>
+        </span>
+
+        {{form.categories}}
+
+      </div>
+      <br>
+      <input class="btn btn-primary" type="submit" value="Create Job">
+    </form>
+
+
+  </div>
+
+
+
+  {% endif %}
+
+</div>
+{% endblock %}

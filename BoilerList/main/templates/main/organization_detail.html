@@ -1,0 +1,56 @@
+{% extends "main/base.html" %}
+{% block content %}
+<div class="jumbotron">
+    <center>
+
+      <img src="{{organization.icon.url}}" name="aboutme" height="140">
+      <h3>
+        {%if organization.available %}
+        <span class="badge success"><i class="fa fa-check"></i> Available</span>
+        {%else%}
+        <span class="badge danger"><i class="fa fa-remove"></i> Not Available</span>
+        {%endif%}
+        <br>
+        {{organization.name}}
+      </h3>
+
+      {% for category in organization.categories.all %}
+      <a href="{% url 'search' %}?search={{ category.name }}&search_model=organization&search_by=category" class="btn btn-default">{{category.name}}</a>
+      {%endfor%}
+
+    </center>
+</div>
+<div class="row">
+  <div class="col-sm-3">
+
+    {% if organization.url %}
+    <div class="panel"><a href="{{ organization.url }}" target="_blank">
+            <button class="btn btn-primary btn-block">
+                <i class="fa fa-external-link"></i> Organization's Website
+            </button>
+    </a></div>
+    {% endif %}
+
+    <div class="panel panel-default">
+      <div class="panel-heading">Stats</div>
+      <ul class="list-group">
+        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Members</strong></span> {{members|length}}</li>
+        <li class="list-group-item text-right">
+          <span class="pull-left"><strong class="">Joined</strong></span>2015
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="col-sm-9" style="" contenteditable="false">
+    <div class="panel panel-default">
+      <div class="panel-heading">Description</div>
+      <div class="panel-body">
+        {{organization.description}}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content%}

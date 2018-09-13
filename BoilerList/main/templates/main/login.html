@@ -1,0 +1,64 @@
+{% extends "main/base.html" %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<h1>
+  But....... You are already logged in
+</h1>
+{% else %}
+<div class="panel-heading">
+  Login
+</div>
+<div class = "jumbotron">
+  <br>
+  {% if form.errors %}
+  <div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    {% for field in form %} 
+    {% if field.errors %}
+    <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <form class="login" action="{% url 'login' %}" method='POST'>
+    {% csrf_token %}
+    <div class="input-group">
+      <span class="input-group-addon" id="addon-e,">
+        <div class="glyphicon glyphicon-user"></div>
+      </span>
+      <input id="id_username" name="username" name="username" value=""type="text" class="form-control" placeholder="Username" autofocus="true" autocomplete="on" aria-describedby="addon1">
+    </div>
+    &nbsp;
+
+    <div class="input-group">
+      <span class="input-group-addon" id="addon-pa">
+        <div class="glyphicon glyphicon-lock"></div>
+      </span>
+      <input type="password" name="password" value="{{password}}" class="form-control" placeholder="Password" aria-describedby="addon1">
+    </div>
+    <br>
+
+    <input type="hidden" name="next" value="{{request.GET.next}}">
+
+    <div>
+      <button type="submit" value="Login" class="btn btn-info">Login</button>
+      <span class="pull-right">
+        
+        <p>Not a user? 
+          <a href="{% url 'user_create' "community" %}">Create an Account</a>
+        </p>
+        <p>Forgot your password? 
+          <a href="{% url 'password_reset_recover' %}">Reset Password</a>
+        </p>
+    </div>
+    </span>
+    
+</div>
+
+</form>
+</div>
+
+{%endif%}
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% extends "main/base.html" %}
+{% load template_tags %}
+
+{% block content %}
+{% if show_dialog %}
+<div class="confirm alert alert-dismissible alert-info">
+    <i type="button" class="close fa fa-close" data-dismiss="alert"></i>
+    <h4> This page shows all notifications for organizations that you a part of.  You need to create an organization before you can begin receiving job requests.  Click the red 'Create Organization' button below to create an organization.</h4>
+</div>
+{% endif %}
+
+<div class="jumbotron">
+
+  <center>
+    <h3>{{ request.user }} <small>Dashboard</small></h3>
+  </center>
+
+</div>
+
+<div class="form-group">
+
+    <a href="{% url 'user_settings' %}"><button class="btn btn-info"> <i class="fa fa-cog"></i> User Settings</button></a>
+    <a href = "{% url 'organization_create' %}" class="btn btn-danger"> <i class="fa fa-plus"></i> Create an Organization</a>
+
+</div>
+
+<div class="row">
+  <div class="col-sm-8">
+    {% for org in organizations %}
+    <div class="panel panel-primary">
+
+      <div class="panel-heading panel-title">
+          Job Requests for: <a href="{% url 'organization_detail' org.id %}">{{ org.name }}</a>
+          <a href="{% url 'organization_settings' org.id %}"><i class="fa fa-cog pull-right"></i></a>
+      </div>
+      <div class="panel-body">
+        <ul class="list-group dash-list">
+        {% for jr in org.jobrequest_set.all %}
+        <a class="list-group-item" href="{% url 'jobrequest_dash' org.id jr.job.id %}">
+          {% if jr.accepted %}
+          <span class="label label-lg label-success">Accepted</span>
+          {% elif jr.declined %}
+          <span class="label label-lg label-danger">Declined</span>
+          {% elif jr.applied %}
+          <span class="label label-lg label-success">Applied</span>
+          {% else %}
+          <span class="label label-lg label-warning">Pending</span>
+          {% endif %}
+          {{ jr.job.name }} by {{ jr.job.client_organization }}
+        </a>
+        {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}

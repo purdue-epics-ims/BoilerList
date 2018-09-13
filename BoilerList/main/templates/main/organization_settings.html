@@ -1,0 +1,94 @@
+{% extends "main/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="jumbotron">
+  <center>
+    <h3>{{ organization.name }} <small>Settings</small></h3>
+  </center>
+</div>
+
+<div class="form-group">
+  <a href="{% url 'user_dash' %}"><button class="btn btn-primary">Back</button></a>
+</div>
+
+<form action="{% url 'organization_settings' organization.id %}" method="post">
+
+  {% csrf_token %}
+
+  <div class="row">
+    <div class="col-sm-6">
+
+    Name
+    <div class="form-group">
+      <div class="input-group">
+          <span class="input-group-addon" id="addon1">
+            <i class="fa fa-institution"></i>
+          </span>
+
+          {% render_field modelform.name class+="form-control" %}
+      </div>
+    </div>
+
+    Website (optional, leave blank if none)
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon" id="addon1">
+                <i class="fa fa-globe"></i>
+            </span>
+            {% render_field modelform.url class+="form-control" %}
+        </div>
+    </div>
+
+    Description
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon" id="addon1">
+          <i class="fa fa-quote-right"></i>
+        </span>
+        {% render_field modelform.description %}
+      </div>
+    </div>
+
+    Categories
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-list"></i>
+        </span>
+        {% render_field modelform.categories class+="form-control" %}
+      </div>
+    </div>
+    </div>
+
+    <div class="col-sm-6">
+      Availability
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-check"></i>
+          </span>
+          {% render_field modelform.available class+="form-control" %}
+        </div>
+      </div>
+
+      Photo
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-image"></i>
+        </span>
+
+        {% render_field modelform.icon class+="form-control" %}
+
+      </div>
+    </div>
+  </div>
+
+    <input class="btn btn-primary" type="submit" value="Save Organization Changes">
+</form>
+<script>
+  $('#id_categories').val({{ categories_id }});
+</script>
+
+{% endblock content %}

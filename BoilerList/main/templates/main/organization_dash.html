@@ -1,0 +1,52 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+{% if show_dialog %}
+<div class="confirm alert alert-dismissible alert-info">
+    <i type="button" class="close fa fa-close" data-dismiss="alert"></i>
+    <h4>Any job requests your organization receives will appear here.  Click 'Organization Settings' to set email preferences and organization availability. </h4>
+</div>
+{% endif %}
+
+<div class="jumbotron">
+  <center>
+    <h3>{{ organization.name }} <small>Dashboard</small></h3>
+  </center>
+</div>
+
+<div class="form-group">
+  <a href="{% url 'organization_settings' organization.id %}"><button class="btn btn-info">Organization Settings</button></a>
+  <a href="{% url 'organization_detail' organization.id %}"><button class="btn btn-info">View Public Profile</button></a>
+</div>
+
+<div class="row">
+  <div class="col-sm-7">
+    <div class="panel panel-primary">
+
+      <div class="panel-heading">
+            Job Requests
+      </div>
+      <div class="panel-body">
+        <ul class="dash-list list-group">
+          {% for jobrequest in jobrequests %}
+          <a href='/organization/{{jobrequest.organization.id}}/job/{{jobrequest.job.id}}' class="list-group-item">
+            {% if jobrequest.accepted %}
+            <span class="label label-lg label-success">Accepted</span>
+            {% elif jobrequest.declined %}
+            <span class="label label-lg label-danger">Declined</span>
+            {% elif jobrequest.applied %}
+            <span class="label label-lg label-success">Applied</span>
+            {% else %}
+            <span class="label label-lg label-warning">Pending</span>
+            {% endif %}
+            {{ jobrequest.job.name }} by {{jobrequest.job.client_organization}}
+          </a>
+          {% endfor %}
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script type='text/javascript' src="{{ STATIC_URL }}js/JobRequestOverlay.js"></script>
+{% endblock content %}

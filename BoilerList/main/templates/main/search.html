@@ -1,0 +1,58 @@
+{% extends "main/base.html" %}
+{% block content %}
+{%load thumbnail%}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Search Results
+  </div>
+  <div class ="panel-body">
+    <!--Search field!-->	
+    <div class="row">
+      <form class="navbar-form navbar-left" action="{% url 'search' %}" method="get">
+        {% csrf_token %}
+        <div class="form-group">
+          <input type="text" autofocus="true" name="search" class="form-control" placeholder="Search for groups">
+        </div>
+        <button type="submit" class="btn btn-primary">Go</button>
+        <input type="hidden" name="search_model" value="organization">
+        <input type="hidden" name="search_by" value="name">
+      </form>
+    </div>
+    
+    <!-- Results !-->
+    
+    {% if search_result %}
+    <div class="alert alert-success" role="alert">
+      <div class="glyphicon glyphicon-ok"></div>  Your search returned {{search_result|length}} results
+    </div>
+    <div class="row">
+      {% for organization in search_result %}
+      <div  class="col-md-6 col-md-4">
+        <div class="thumbnail">
+          <a href="{% url 'organization_detail' organization.id %}">
+            {% thumbnail organization.icon 100x100 as thumb%}
+            <img src="{{thumb.url}}" height="{{thumb.height}}" width="{{thumb.width}}">
+          </a>
+          <div class="caption">
+            <a href="{% url 'organization_detail' organization.id %}"><h4 style="text-align=center">{{organization.name}}</h4></a>
+            <h4 style="text-align=center">
+              {%for skill in organization.categories.all%}
+              {%endfor%}
+              <br>
+          </div>
+        </div>
+      </div>
+      {%if forloop.counter|divisibleby:3 %}
+    </div>
+    <div class="row">
+      {%endif%}
+      {%endfor%}
+    </div>
+    {% else %}
+    <div class="alert alert-warning">
+      <div class="glyphicon glyphicon-remove"></div> Your search returned no results.
+    </div>
+    {%endif%}
+  </div>
+</div>
+{% endblock %}

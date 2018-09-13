@@ -1,0 +1,124 @@
+{% extends "main/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="jumbotron">
+  <center>
+    <h3>{{ user.username }}<small>Settings</small></h3>
+  </center>
+
+
+</div>
+
+  {% if username %}
+  <b>Welcome {{ username }}.  Please check your email for a confirmation message.</b>
+  {% else %}
+  <div class="form-group"><a href="{% url 'user_dash' %}"><button class="btn btn-primary">Back</button></a></div>
+  <form action="{% url 'user_settings' %}" method="post">
+
+    {% csrf_token %}
+    <div class="input-group" style="display:none;">
+      <span class="input-group-addon" id="addon-e,">
+        <div class="glyphicon glyphicon-user"></div>
+      </span>
+      <input id="id_username" name="username" maxlength="30" type="text" class="form-control" placeholder="Edit username" autofocus="true" autocomplete="off" aria-describedby="addon1" value="{{user.username}}">
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+      
+      First Name
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon" id="addon1">
+              <i class="fa fa-institution"></i>
+            </span>
+            {% render_field profile_form.first class+="form-control"  placeholder="First Name" %}
+        </div>
+      </div>
+      Last Name
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon" id="addon1">
+              <i class="fa fa-institution"></i>
+            </span>
+            {% render_field profile_form.last class+="form-control"  placeholder="Last Name" %}
+        </div>
+      </div>
+       Organization name
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon" id="addon1">
+              <i class="fa fa-institution"></i>
+            </span>
+            {% render_field profile_form.organization class+="form-control"  placeholder="Organization name" %}
+        </div>
+      </div>
+     Title in organization
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon" id="addon1">
+              <i class="fa fa-institution"></i>
+            </span>
+            {% render_field profile_form.title class+="form-control"  placeholder="Title in organization" %}
+        </div>
+      </div>
+     Phone Number
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon" id="addon1">
+              <i class="fa fa-institution"></i>
+            </span>
+            {% render_field profile_form.phone class+="form-control"  placeholder="Phone number" %}
+        </div>
+      </div>
+     Username
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon" id="addon1">
+              <i class="fa fa-institution"></i>
+            </span>
+            {% render_field form.username class+="form-control"  placeholder="Username" %}
+        </div>
+      </div>
+      Email
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon" id="addon1">
+              <i class="fa fa-institution"></i>
+            </span>
+            {% render_field form.email class+="form-control"  placeholder="Email" %}
+        </div>
+      </div>
+
+      Password 
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon" id="addon1">
+              <i class="fa fa-institution"></i>
+            </span>
+
+            {% render_field form.password1 class+="form-control" %}
+        </div>
+      </div>
+
+      Confirm Password 
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon" id="addon1">
+              <i class="fa fa-institution"></i>
+            </span>
+
+            {% render_field form.password2 class+="form-control" %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+    <input class="btn btn-primary" type="submit" value="Modify User" onclick="submitFunction()">
+  </form>
+  {% endif %}
+<!--/div>-->
+{% endblock content %}

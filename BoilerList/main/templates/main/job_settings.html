@@ -1,0 +1,169 @@
+{% extends "main/base.html" %}
+{% load widget_tweaks %}
+{% load sniplates %}
+{% load_widgets widgets="main/widgets.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+  <center>
+    <h3>{{ job.name }} <small>Settings</small></h3>
+  </center>
+</div>
+
+<div class="form-group"><a href="{% url 'job_dash' job.id %}"><button class="btn btn-primary">Back</button></a></div>
+
+<form action="{% url 'job_settings' job.id %}" method="post">
+<h1>Basic information</h1>
+  {% csrf_token %}
+
+  <div class="row">
+
+    <div class="col-sm-6">
+
+      Project Title:
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-bullhorn"></i>
+        </span>
+        {% render_field form.name class+="form-control" %}
+      </div>
+
+      Community Organization & Project Coordinator:
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-coffee"></i>
+        </span>
+        {% render_field form.client_organization class+="form-control" %}
+      </div>
+
+       
+						
+      Contact Information: 
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-coffee"></i>
+        </span>
+      {% render_field form.contact_information class+="form-control" %}
+       </div>
+                        
+      Briefly describe the product or service that you expect as a result of this project:
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-check"></i>
+        </span>
+        {% render_field form.deliverable class+="form-control" %}
+      </div>
+
+     Which categories would your project fit in the best:
+                        <form action='url' method='post'> {% csrf_token %}
+                            <br><input type="checkbox" name="activism" value="Yes" {% if job.activism %}checked{% endif %}>Activism & advocacy
+                            <br><input type="checkbox" name="arts" value="Yes" {% if job.arts %}checked{% endif %}>Arts & culture
+                            <br><input type="checkbox" name="civil" value="Yes" {% if job.civil %}checked{% endif %}>Civil rights & human rights
+                            <br><input type="checkbox" name="school" value="Yes" {% if job.school %}checked{% endif %}>School readiness in Pre-K to 12 education
+                            <br><input type="checkbox" name="crisis" value="Yes" {% if job.crisis %}checked{% endif %}>Crisis & conflict resolution  
+                            <br><input type="checkbox" name="criminal" value="Yes" {% if job.criminal %}checked{% endif %}>Criminal justice & legal representation
+                            <br><input type="checkbox" name="disaster" value="Yes" {% if job.disaster %}checked{% endif %}>Disaster preparedness
+                            <br><input type="checkbox" name="economic" value="Yes" {% if job.economic %}checked{% endif %}>Economic development
+                            <br><input type="checkbox" name="entrepreneurship" value="Yes" {% if job.entrepreneurship %}checked{% endif %}>Entrepreneurship
+                            <br><input type="checkbox" name="environment" value="Yes" {% if job.environment %}checked{% endif %}>Environment & sustainability
+                            <br><input type="checkbox" name="food" value="Yes" {% if job.food %}checked{% endif %}>Food security
+                            <br><input type="checkbox" name="housing" value="Yes" {% if job.housing %}checked{% endif %}>Housing & homelessness
+                            <br><input type="checkbox" name="immigrants" value="Yes" {% if job.immigrants %}checked{% endif %}>Immigrants & migrant worker rights
+                            <br><input type="checkbox" name="individual" value="Yes" {% if job.individual %}checked{% endif %}>Individual & community health
+                            <br><input type="checkbox" name="mental" value="Yes" {% if job.mental %}checked{% endif %}>Mental health
+                            <br><input type="checkbox" name="poverty" value="Yes" {% if job.poverty %}checked{% endif %}>Poverty alleviation
+                            <br><input type="checkbox" name="substance" value="Yes" {% if job.substance %}checked{% endif %}>Substance abuse & recovery
+                            <br><input type="checkbox" name="STEM" value="Yes" {% if job.STEM %}checked{% endif %}>STEM education
+                            <br><input type="checkbox" name="transportation" value="Yes" {% if job.transportation %}checked{% endif %}>Transportation
+                            <br><input type="checkbox" name="veterans" value="Yes" {% if job.veterans %}checked{% endif %}>Veterans
+                            <br><input type="checkbox" name="voting" value="Yes" {% if job.voting %}checked{% endif %}>Voting
+                            <br>Other. Please specify:<div class="input-group"><span class="input-group-addon"><i class="fa fa-coffee"></i></span>{% render_field form.other class+="form-control" placeholder="Technology" %} </div>
+                        </form>
+
+      <h1>Student requirements information</h1>
+
+
+
+      Specify the student skill sets required: 
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-coffee"></i>
+        </span>
+        {% render_field form.skill_required class+="form-control" %}
+      </div>
+
+
+      Specify the date when this project is due. If you are not sure of the exact date, give a close approximation:
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-calendar"></i>
+        </span>
+        {% render_field form.duedate class+="form-control" %}
+      </div>
+      
+      Specify the number of hours the student needs to work per day/week: <br>
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-coffee"></i>
+        </span>
+        {% render_field form.hours_day class+="form-control" %}
+      </div>
+       
+      Give a short description of the duties of a student:
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-coffee"></i>
+        </span>
+        {% render_field form.description class+="form-control" %}
+      </div>
+
+        <div class="hide">
+        {% render_field form.active class+="form-control" %}
+         {% render_field form.approve class+="form-control" %}
+         </div>
+
+      <!--Stakeholders
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-coffee"></i>
+        </span>
+        {% render_field form.stakeholders class+="form-control" %}
+      </div>
+
+      Budget
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-money"></i>
+        </span>
+        {% render_field form.budget class+="form-control" %}
+      </div>
+
+      Attachments
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="fa fa-file"></i>
+        </span>
+        {% render_field form.attachments class+="form-control" %}
+      </div>
+
+      <div class="panel-group">
+          {% render_field form.categories class+="form-control" %}
+
+      </div>
+
+      <div class="panel-group">
+          {% render_field form.categories class+="form-control" %}
+    </div>
+
+  </div>-->
+
+  <div class="form-group pull-right">
+    <input class="btn btn-primary" type="submit" value="Save Changes" onclick="submitFunction()">
+  </div>
+</form>
+<!--script>
+  $('#id_categories').val({{ categories_id }});
+</script-->   
+
+{% endblock content %}

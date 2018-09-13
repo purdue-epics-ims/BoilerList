@@ -1,0 +1,24 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    {{ title }}
+    <div class="badge">
+      {{ unread_notifications|length }}
+    </div>
+  </div>
+
+  <div class="list-group notifications">
+    {% for noti in unread %}
+    <a href="{{noti.data.url}}" class="list-group-item">
+      {{noti.actor}} {{ noti.verb }} {% if noti.action_object %}{{noti.action_object}} {% endif %}
+      <span class="pull-right"><small>{{ noti.timestamp }}</small></span>
+    </a>
+    {% endfor %}
+    {% for noti in read %}
+    <a href="{{noti.data.url}}" class="list-group-item read">
+      {{noti.actor}} {{ noti.verb }} {% if noti.action_object %}{{noti.action_object}} {% endif %}
+      <span class="pull-right"><small>{{ noti.timestamp }}</small></span>
+    </a>
+    {% endfor %}
+  </div>
+
+</div>

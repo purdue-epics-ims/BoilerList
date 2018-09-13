@@ -1,0 +1,130 @@
+{% load staticfiles %}
+{% load guardian_tags %}
+{%load notifications_tags%}
+{% load sniplates %}
+{% load_widgets widgets="main/widgets.html" %}
+<html>
+    <head>
+        <link rel='stylesheet' type='text/css' href="{% static 'bootstrap.min.css' %}"/>-->
+
+        <link rel="icon" type="image/png" href='{% static 'favicon.png' %}'/>
+        <script type='text/javascript' src="{% static 'jquery.min.js' %}"></script>
+        <script type='text/javascript' src="{{ STATIC_URL }}js/Utilities.js"></script>
+        <script type='text/javascript' src="{% static 'bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <link rel='stylesheet' type='text/css' href='{% static 'style.css' %}'/>
+
+        <title>
+            {{ SETTINGS.PROJECT_NAME }} - {%block title%}Connecting Jobs with Service Organizations{%endblock%}
+        </title>
+    </head>
+
+    <body>
+        {% block navbar %}
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+
+                <!------------ NAVBAR ----->
+                <div class="navbar-header">
+                    <a  class="navbar-brand" rel="home" href="/" title="{{ SETTINGS.PROJECT_NAME }}">
+                    <img draggable="false" style="max-width:27px;margin-top:-3px;margin-right:-7px;"
+                            src='{% static 'brand.png' %}'>
+                    </a>
+                    <a href="{% url 'front_page' %}" class="navbar-brand">{{ SETTINGS.PROJECT_NAME }}</a>
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar-main">
+                    <ul class="nav navbar-nav navbar-left">
+                    <li><a href="{%url 'about'%}">About</a></li>
+                    </ul>
+                    <!--------- Logged in user navbar ------------>
+
+                    {% if user.is_authenticated %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{% url 'user_dash' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="{%url 'logout'%}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                    </ul>
+
+
+                    <!--------- Anonymous user navbar ------------->
+
+                    {% else %}
+                    <ul class="nav navbar-nav navbar-right">
+
+                    <li>
+                        <p class="navbar-btn">
+                        <a style="margin-right:5px;" href="{% url 'login' %}" class="btn btn-default">Login</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="navbar-btn">
+                        <a href="{% url 'user_create' "community" %}" class="btn btn-primary">Join</a>
+                        </p>
+                    </li>
+
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endblock navbar %}
+
+
+        <br><br><br>
+        <div class="container container-fluid">
+
+        <!--------------- Form Messages ------------------->
+
+        {% if form.errors %}
+        <div id="error">
+            <div class="alert alert-danger">
+
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            There are incorrect fields.
+            {{ form.errors }}
+            </div>
+        </div>
+        {% endif %}
+
+        <!--------------- Generic Message --------------->
+        {% if messages %}
+        <div>
+            {% for message in messages %}
+                {% if message.tags == 'info' %}
+                <div class="confirm alert alert-dismissible alert-success">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    {{ message }}
+                </div>
+                {% elif message.tags == 'error' %}
+                <div class="error alert alert-dismissible alert-danger">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    {{ message }}
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-------------- Main Page Content ------------------>
+
+        {% block content %}
+        {% endblock %}
+
+        </div>
+
+        <div class="footer">
+        {% block footer %}
+        <br><p>All Rights Reserved <a href="http://epics.ecn.purdue.edu/ims/">EPICS IMS 2015</a></p>
+        {% endblock %}
+        </div>
+
+    </body>
+
+
+</html>

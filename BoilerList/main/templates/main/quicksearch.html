@@ -1,0 +1,117 @@
+{% extends "main/base.html" %}
+
+
+{% block content %}
+<h2>Search Organizations</h2>
+<div class="form-group">
+  <label class="control-label" for="search">Filter Purdue Groups by name or tag</label>
+  <input id="search" class="form-control input-lg" type="text" >
+</div>
+<div class="org_list list-group" id="org_results">
+    {% for org in orgs %}
+    <div class="org_item list-group-item" org_id="{{org.id}}">
+        <h4 class="org_name list-group-item-heading">
+          <a href="{% url 'organization_detail' org.id %}">
+          {{org.name}}
+          </a>
+          <a class="org_button btn btn-success pull-right">Add</a>
+        </h4>
+        <p>
+          {% for cat in org.categories.all %}
+          <span class="category label label-default">{{ cat }}</span>
+          {% endfor %}
+        </p>
+    </div>
+    {% endfor %}
+</div>
+
+<hr>
+
+<h2>Selected Organizations</h2>
+<div class="org_list list-group" id="org_selected">
+    {% for org in orgs %}
+    <div class="org_item list-group-item hidden" org_id="{{org.id}}">
+        <h4 class="org_name list-group-item-heading">
+          <a href="{% url 'organization_detail' org.id %}">
+          {{org.name}}
+          </a>
+          <a class="org_button btn btn-danger pull-right">Remove</a>
+        </h4>
+        <p>
+          {% for cat in org.categories.all %}
+          <span class="category label label-default">{{ cat }}</span>
+          {% endfor %}
+        </p>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+
+
+  //select an org
+    $('#org_results').find('.org_item').find('.org_button').click(function(){
+      var org_id = $(this).closest('.org_item').attr("org_id")
+      $('#org_results').find('[org_id="'+org_id+'"]').addClass("hidden")
+      $('#org_selected').find('[org_id="'+org_id+'"]').removeClass("hidden")
+    })
+
+
+  //deslect an org
+  $('#org_selected').find('.org_item').find('.org_button').click(function(){
+      var org_id = $(this).closest('.org_item').attr("org_id")
+      $('#org_results').find('[org_id="'+org_id+'"]').removeClass("hidden")
+      $('#org_selected').find('[org_id="'+org_id+'"]').addClass("hidden")
+  })
+
+
+  //handle tag click action
+  $('#org_results').find('.category').click(function(){
+      $('#search').val($(this).text())
+      filter()
+  })
+
+  //filter org_results list by name and category
+  function filter(){
+      console.log('keypress')
+      var search_text = $('#search').val().toLowerCase();
+
+      $('#org_results').find('.org_item').each(function(i,org_item){
+          var show = 0;
+          //check for match in each category, highlight match
+          console.log($(org_item).find('.organization'))
+          $(org_item).find('.category').each(function(i,cat_item){
+              if (search_text && $(cat_item).text().search(search_text) >=0) {
+                  show = 1;
+                  $(cat_item).removeClass('label-default')
+                  $(cat_item).addClass('label-warning')
+              }
+              else {
+                  $(cat_item).removeClass('label-warning')
+                  $(cat_item).addClass('label-default')
+              }
+          })
+
+          //check for match in name
+          var name_str = $(org_item).children('.org_name').text().toLowerCase();
+          if (name_str.search(search_text) >= 0){
+              show = 1
+          }
+
+          //hide or show
+          if (show) {
+              $(org_item).show()
+          }
+          else {
+              $(org_item).hide()
+          }
+      })
+  }
+
+  //filter for every keypress
+  $('#search').keyup(function() {
+      filter()
+  });
+</script>
+
+{% endblock content %}

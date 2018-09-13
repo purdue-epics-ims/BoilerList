@@ -1,0 +1,115 @@
+{% extends "main/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="panel-heading">
+  <div class="">
+    Sign Up
+  </div>
+</div>
+<div class = "jumbotron">
+
+<form class="form-horizontal" method='POST'>
+{% csrf_token %}
+  <fieldset>
+     <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon">
+            <div class="fa fa-user"></div>
+        </span>
+        {% render_field profile_form.first class+="form-control" placeholder="First Name" %}
+      </div>
+    </div>
+     <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon" id="addon-e,">
+            <div class="fa fa-user"></div>
+        </span>
+        {% render_field profile_form.last class+="form-control" placeholder="Last Name" %}
+      </div>
+    </div>
+     <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon" id="addon-e,">
+            <div class="fa fa-user"></div>
+        </span>
+        {% render_field profile_form.organization class+="form-control" placeholder="Organization name" %}
+      </div>
+    </div>
+     <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon" id="addon-e,">
+            <div class="fa fa-user"></div>
+        </span>
+        {% render_field profile_form.title class+="form-control" placeholder="Title in organization" %}
+      </div>
+    </div>
+     <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon" id="addon-e,">
+            <div class="fa fa-user"></div>
+        </span>
+        {% render_field profile_form.phone class+="form-control" placeholder="Phone number" %}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon" id="addon-e,">
+            <div class="fa fa-user"></div>
+        </span>
+        {% render_field form.username class+="form-control" placeholder="Username" %}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon" id="addon-e,">
+            <div class="fa fa-user"></div>
+        </span>
+        {% render_field form.email class+="form-control" placeholder="Email"%}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon" id="addon-pa">
+          <div class="fa fa-lock"></div>
+        </span>
+        {% render_field form.password1 class+="form-control" placeholder="Password" %}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon" id="addon-pa">
+          <div class="fa fa-lock"></div>
+        </span>
+        {% render_field form.password2 class+="form-control" placeholder="Confirm" %}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon">
+          <div class="fa fa-user"></div>
+        </span>
+        {% render_field profile_form.purdueuser class+="form-control" %}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div>
+        <button type="submit" value="Create User" class="btn btn-primary">Create Account</button>
+        <span class="pull-right">
+          <p>Already a user?
+            <a href="{% url 'login' %}">Login</a>
+          </p>
+        </span>
+      </div>
+    </div>
+  </fieldset>
+</form>
+
+</div>
+
+{% endblock content %}

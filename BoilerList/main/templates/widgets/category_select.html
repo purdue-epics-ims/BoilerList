@@ -1,0 +1,35 @@
+{% load staticfiles %}
+
+<div style="display: none;">
+</div>
+
+<div class="panel-group">
+    <ul id="id_categories">
+        {% comment %} Display each category group and its categories in a panel {% endcomment %}
+        {% for category_group in category_groups %}
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse{{forloop.counter}}">{{category_group.name}}</a>
+                </h4>
+            </div>
+            {% comment %}collapsing disabled for now {% endcomment %}
+            {% comment %}<div id="collapse{{forloop.counter}}" class="panel-collapse collapse">{% endcomment %}
+            <div id="collapse{{forloop.counter}}" class="panel-collapse ">
+                    {% for category in category_group.categories.all %}
+                    <div class="checkbox">
+                        <label>
+                        </label>
+                        <!-- <li> -->
+                        <label for="id_categories_{{category.id}}">
+                            <input id="id_categories_{{category.id}}" name="categories" type="checkbox" value="{{category.id}}" {% if category in selected_categories %}checked{% endif %}>
+                            {{category.name}}
+                        </label>
+                            <!-- </li> -->
+                    </div>
+                    {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </ul>
+</div>

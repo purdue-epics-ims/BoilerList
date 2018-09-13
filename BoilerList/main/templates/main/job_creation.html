@@ -1,0 +1,251 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% load guardian_tags %}
+{% load widget_tweaks %}
+{% load sniplates %}
+{% load_widgets widgets="main/widgets.html" %}
+
+{% block navbar %}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a  class="navbar-brand" rel="home" href="/" title="{{ SETTINGS.PROJECT_NAME }}">
+            <img draggable="false" style="max-width:27px;margin-top:-3px;margin-right:-7px;"
+                    src='{% static 'brand.png' %}'>
+            </a>
+            <a class="navbar-brand">Project Creation Process</a>
+        </div>
+    </div>
+</div>
+{% endblock navbar %}
+
+{% block content %}
+<div class="container">
+    <div class="form-group">
+        <form action="{% url 'job_creation' %}" method="post">{% csrf_token %}
+
+            <div class="row">
+
+                <!----------------- Explanation Tab ---------------->
+
+                <h1>How it Works</h1>
+                <div class="row">
+                    <div class="col-sm-4">
+                        Submit your project proposal through this portal and wait for your project to be approved.
+                    </div>
+                    <div class="col-sm-4">
+                        Professors will be able to view your proposals and select if they are interested.
+                    </div>
+                    <div class="col-sm-4">
+                        Finally, you will be connected with the professor who best suits the service learning oppurtunity.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <br><br>
+                        <img class="explanation" src="static/Part1(2).png"><br>
+                    </div>
+                    <div class="col-sm-4">
+                        <br>
+                        <img class="explanation" src="static/Part2(2).png"><br>
+                    </div>
+                    <div class="col-sm-4">
+                        <br>
+                        <img class="explanation" src="static/Part3(3).png"><br>
+                    </div>
+                </div>
+
+                <div class="row row-centered">
+                    <div-- class="col-sm-8 col-centered">
+                        <!--########## Basic information Tab ##########-->
+
+                        <h1>Basic information</h1>
+                        <div class="form-group">
+                            <!-- Edit made -->
+							Project Title:<br>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-bullhorn"></i>
+                                </span>
+                                {% render_field form.name class+="form-control" placeholder="eg. Irrigation System" %}
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <!--Edit made-->
+							Community Organization & Project Coordinator:<br>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-coffee"></i>
+                                </span>
+                                {% render_field form.client_organization class+="form-control" placeholder="eg. Lafayette City Farms" %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+						<!--Edit needs to made here but may have to edit model to match-->
+                            Contact Information: <br>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-coffee"></i>
+                                </span>
+                                {% render_field form.contact_information class+="form-control" placeholder="eg. emails, phone number" %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            Briefly describe the product or service that you expect as a result of this project: (256 characters)<br>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-coffee"></i>
+                                </span>
+                                {% render_field form.deliverable class+="form-control" placeholder="eg. An pump system to handle Spring flooding." %}
+                            </div>
+                        </div>
+
+                    Which categories would your project fit in the best:
+                        <form action='url' method='post'> {% csrf_token %}
+                            <br><input type="checkbox" name="activism" value="Yes">Activism & advocacy
+                            <br><input type="checkbox" name="arts" value="Yes">Arts & culture
+                            <br><input type="checkbox" name="civil" value="Yes">Civil rights & human rights
+                            <br><input type="checkbox" name="school" value="Yes">School readiness in Pre-K to 12 education
+                            <br><input type="checkbox" name="crisis" value="Yes">Crisis & conflict resolution  
+                            <br><input type="checkbox" name="criminal" value="Yes">Criminal justice & legal representation
+                            <br><input type="checkbox" name="disaster" value="Yes">Disaster preparedness
+                            <br><input type="checkbox" name="economic" value="Yes">Economic development
+                            <br><input type="checkbox" name="entrepreneurship" value="Yes">Entrepreneurship
+                            <br><input type="checkbox" name="environment" value="Yes">Environment & sustainability
+                            <br><input type="checkbox" name="food" value="Yes">Food security
+                            <br><input type="checkbox" name="housing" value="Yes">Housing & homelessness
+                            <br><input type="checkbox" name="immigrants" value="Yes">Immigrants & migrant worker rights
+                            <br><input type="checkbox" name="individual" value="Yes">Individual & community health
+                            <br><input type="checkbox" name="mental" value="Yes">Mental health
+                            <br><input type="checkbox" name="poverty" value="Yes">Poverty alleviation
+                            <br><input type="checkbox" name="substance" value="Yes">Substance abuse & recovery
+                            <br><input type="checkbox" name="STEM" value="Yes">STEM education
+                            <br><input type="checkbox" name="transportation" value="Yes">Transportation
+                            <br><input type="checkbox" name="veterans" value="Yes">Veterans
+                            <br><input type="checkbox" name="voting" value="Yes">Voting
+                            <br>Other. Please specify:<div class="input-group"><span class="input-group-addon"><i class="fa fa-coffee"></i></span>{% render_field form.other class+="form-control" placeholder="Technology" %} </div>
+                        </form>
+
+                        <!------------ Technical specifications Tab ------------>
+
+                       
+                        <h1>Student requirements information</h1>
+
+                         <div class="form-group">
+                            Specify the student skill sets required: <br>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-coffee"></i>
+                                </span>
+                                {% render_field form.skill_required class+="form-control" placeholder="eg. Java, Python, Leadership" %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            Specify the date when this project is due. If you are not sure of the exact date, give a close approximation: <br>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                {% render_field form.duedate class+="form-control" placeholder="yyyy-mm-dd" %}
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            Specify the number of hours the student needs to work per day/week: <br>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-coffee"></i>
+                                </span>
+                                {% render_field form.hours_day class+="form-control" placeholder="eg. 10 hours a week" %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            Give a short description of the duties of a student: (256 characters)<br>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-coffee"></i>
+                                </span>
+                            {% render_field form.description class+="form-control" placeholder="eg. needs to build a django website from scratch"%}
+                            </div>
+                        </div>
+
+
+						<!--This section may be unneeded -->
+                        <!-- <div class="form-group">
+                            List any individuals or groups who might be affected by this work.  Give a description if necessary.
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-coffee"></i>
+                                </span>
+                                </div>
+                        </div> 
+                            -->
+					<!--This section may be unneeded -->
+                       <!-- <div class="form-group">
+                            If available, provide any additional information about project. In this section, you should be as precise as you can. 
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-cogs"></i>
+                                </span>
+                                </div>
+                        </div>
+                           -->
+					<!--This section may be unneeded -->
+                       <!-- <div class="form-group">
+                            What is the budget that team can use for the project? You can provide the explanation along with the budget, or the estimation if you do not have precise data at the moment.
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-money"></i>
+                                </span>
+                            </div>
+                        </div> -->
+
+					<!--Edit Made-->
+                        <!--div class="form-group">
+                            Please upload a formal proposal document. 
+							Below is a reference doucment.
+                            <br>							
+                               
+
+                            <div class="input-group">
+
+                                <span class="input-group-addon">
+                                    <i class="fa fa-file"></i>
+                                </span>
+                               <!-- Not sure why this adds two upload file buttons? with this commented out one button still appears
+                                   <input name="myFile" type="file">
+                                {% render_field form.attachments %}
+                               <a href="static/rough_draft.pdf" download> Download a reference document here.</a>
+                            </div>
+                        </div-->
+
+                        <!------------ Add Organizations Tab ---------------->
+
+                        <!--h1>Job Categories</!--h1-->
+                        <!--Select some words that pertain to your job and we will try to find a group that fits your needs.
+                        {% render_field form.categories %}-->
+
+                        <div class="panel-group">
+
+
+                            <div class="button_group">
+                                <input type="submit" class="btn btn-primary" value="Submit Job">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+
+{% endblock content %}

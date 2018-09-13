@@ -1,0 +1,63 @@
+{% load staticfiles %}
+<!-- ---------------------------- Organization Search ----------------------------->
+
+<div style="display: none;">
+    <select multiple="multiple" id="id_organizations" name="organizations">
+        {% for organization in selected_orgs %}
+        <option value="{{organization.id}}" selected="selected">{{organization.name}}</option>
+        {% endfor %}
+        {% for organization in deselected_orgs %}
+        <option value="{{organization.id}}">{{organization.name}}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="row org_search">
+    <div class="col-sm-6">
+    <h2>Search Organizations</h2>
+    Additionally, you can request work from specific groups.  Search groups and add them below.
+    <div class="form-group">
+    <input id="search" class="form-control input-lg" type="text" >
+    </div>
+        <div class="org_list list-group" id="org_results">
+            {% for org in deselected_orgs %}
+            <div class="org_item list-group-item" org_pk="{{org.id}}">
+                <h4 class="org_name list-group-item-heading">
+                <a href="{% url 'organization_detail' org.id %}">
+                {{org.name}}
+                </a>
+                <a onclick="select_org(this);" class="org_button btn btn-success pull-right">Add</a>
+                </h4>
+                <p>
+                {% for cat in org.categories.all %}
+                <span class="category btn btn-default">{{ cat }}</span>
+                {% endfor %}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <h2>Selected Organizations</h2>
+        <div class="org_list list-group" id="org_selected">
+            {% for org in selected_orgs %}
+            <div class="org_item list-group-item" org_pk="{{org.id}}">
+                <h4 class="org_name list-group-item-heading">
+                <a href="{% url 'organization_detail' org.id %}">
+                {{org.name}}
+                </a>
+                <a onclick="deselect_org(this);" class="org_button btn btn-danger pull-right">Remove</a>
+                </h4>
+                <p>
+                {% for cat in org.categories.all %}
+                <span class="category btn btn-default">{{ cat }}</span>
+                {% endfor %}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'org_search.js' %}"></script>

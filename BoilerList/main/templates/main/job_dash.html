@@ -1,0 +1,243 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+{% if show_dialog %}
+<div class="confirm alert alert-dismissible alert-info">
+    <i type="button" class="close fa fa-close" data-dismiss="alert"></i>
+    <h4> This page shows the organizations you submitted this job request to, and whether they have accepted or declined it.  Click on the organization's name to make changes to the request sent to that particular organization.</h4>
+</div>
+{% endif %}
+
+<div class="jumbotron">
+  <center>
+    <h3>{{ job.name }} <small>Dashboard</small></h3>
+    <small>Created by</small> {{job.client_organization}}
+    {%if not request.user.userprofile.purdueuser%}
+    <br>
+    {%endif%}
+    <br><br>
+    <i class="fa fa-calendar"></i> Due on  <span class="badge "> {{job.duedate}}</span>
+  </center>
+</div>
+
+<div class="form-group"><a href="{% url 'job_settings' job.id %}"><button class="btn btn-info">Job Settings</button></a></div>
+
+<div class="row">
+  <div class="col-sm-5">
+    <div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Information about the Job</h3>
+    </div>
+    <div class="panel-body">
+        <div class="well well-sm information-body">
+            <b>Organization name</b>: {{job.client_organization}}
+        </div>
+        <div class="well well-sm information-body">
+            <b>Description</b>: {{job.description}}
+        </div>
+        <div class="well well-sm information-body">
+            <b>Contact Information</b>: {{job.contact_information}}
+        </div>
+        <div class="well well-sm information-body">
+            <b>Deliverable</b>: {{job.deliverable}}
+        </div>
+        <div class="well well-sm information-body">
+            <b>Student skills</b>: {{job.skill_required}}
+        </div>
+        <div class="well well-sm information-body">
+            <b>Number of hours per week</b>: {{job.hours_day}}
+        </div>
+        <div class="well well-sm information-body">
+            <b>Categories that best describe the project:</b>
+            {% if job.activism %}
+             <br>Activism & advocacy
+            {% endif %}
+            {% if job.arts %}
+             <br>Arts & culture
+            {% endif %}
+            {% if job.civil %}
+             <br>Civil rights & human rights
+            {% endif %}
+            {% if job.school %}
+             <br>School readiness in Pre-K to 12 education
+            {% endif %}
+            {% if job.crisis %}
+             <br>Crisis & conflict resolution
+            {% endif %}
+            {% if job.criminal %}
+             <br>Criminal justice & legal representation
+            {% endif %}
+            {% if job.disaster %}
+             <br>Disaster preparedness
+            {% endif %}
+            {% if job.economic %}
+             <br>Economic development
+            {% endif %}
+            {% if job.entrepreneurship %}
+             <br>Entrepreneurship
+            {% endif %}
+            {% if job.environment %}
+             <br>Environment & sustainability
+            {% endif %}
+            {% if job.food %}
+             <br>Food security
+            {% endif %}
+            {% if job.housing %}
+             <br>Housing & homelessness
+            {% endif %}
+            {% if job.immigrants %}
+             <br>Immigrants & migrant worker rights
+            {% endif %}
+            {% if job.individual %}
+             <br>Individual & community health
+            {% endif %}
+            {% if job.mental %}
+             <br>Mental health
+            {% endif %}
+            {% if job.poverty %}
+             <br>Poverty alleviation
+            {% endif %}
+            {% if job.substance %}
+             <br>Substance abuse & recovery
+            {% endif %}
+            {% if job.STEM %}
+             <br>STEM education
+            {% endif %}
+            {% if job.transportation %}
+             <br>Transportation
+            {% endif %}
+            {% if job.veterans %}
+             <br>Veterans
+            {% endif %}
+            {% if job.voting %}
+             <br>Voting
+            {% endif %}
+            {% if job.other %}
+             <br>{{job.other}}
+            {% endif %}
+
+        </div>
+    </div>
+    </div>
+  </div>
+   
+    <div class="col-sm-7">
+    <div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Project activation status</h3>
+    </div>
+     <div class="panel-body">
+           <span style="padding-left:50px;"></span>
+           <b> Status</b>: {% if job.active %}
+                                <b>Active</b>
+                           {% else %}
+                                <b>Deactive</b>
+                           {% endif %}
+            <span style="padding-left:140px;"></span>
+           <button type="button" id ="Active" class="btn btn-primary" onClick="doTask(this.id)">Activate</button>
+           <button type="button" id ="Deactive" class="btn btn-primary" onClick="doTask(this.id)">Deactivate</button>
+           <button type="button" class="btn btn-primary" onclick="doDelete()">Dissolve</button>
+           <script>
+               function doDelete(){
+
+                 $.ajax({
+                     url: '/job/job_delete/', 
+                     data: {
+                         'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+                         'Jobid': {{job.id}}
+        },
+        dataType: 'json',
+        complete: function (response) {
+               window.location.href = '/user'
+        },
+        error: function () {
+        //    $('#status').html('Bummer: there was an error!');
+        },
+
+});
+return false;
+
+}
+           </script>
+
+          <script type="text/javascript">
+             function doTask(id){
+
+                 $.ajax({
+                     //url: '/job/status_update/?status=' + id + '&Jobid=' + {job.id},
+                     url: '/job/status_update/',
+                     //url: 'job/status_update/?status=active&Jobid=\d+',
+                     //active = 
+                     data: {
+                         'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+                         'status': id,
+                         'Jobid': {{job.id}}
+        },
+        dataType: 'json',
+        complete: function (response) {
+            $('#status').html(response.responseText);
+            location.reload();
+        },
+        error: function () {
+            $('#status').html('Bummer: there was an error!');
+        },
+
+});
+return false;
+
+}
+      </script>
+       
+     </div>
+    </div>
+    </div>
+    
+    <div class="col-sm-7">
+    <div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Job approval status</h3>
+    </div>
+     <div class="panel-body">
+           <span style="padding-left:50px;"></span>
+           <b> Status</b>: {% if job.approve %}
+                                <b>Approved</b>
+                           {% else %}
+                                <b>Pending</b>
+                           {% endif %}
+    </div>
+        </div>
+        </div>
+    
+  <div class="col-sm-7">
+    <div class="panel panel-primary">
+
+      <div class="panel-heading">
+          Interested Organizations
+      </div>
+      <div class="panel-body">
+        <ul class="list-group dash-list">
+            <form action="{% url 'job_dash' job.id%}" method ="post">
+            {% for jobrequest in applied_jobrequests %}
+            <li class="list-group-item">
+                <img class="icon" src="{{ jobrequest.organization.icon.url }}"></img>
+                <a href="{% url 'organization_detail' jobrequest.organization.id %}">{{jobrequest.organization.name}}</a>
+                {%csrf_token%}
+                {% if not jobrequest.confirmed and not job.closed %}
+                <button class="btn btn-success pull-right" type="submit" name="jobrequest_id" value="{{jobrequest.id}}">Confirm</button>
+                {% elif jobrequest.confirmed %}
+                <span class="label label-success pull-right">Confirmed</span>
+                {% endif %}
+
+            </li>
+          {% endfor %}
+            </form>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--this message appears for new user only -->
+<script type='text/javascript' src="{{ STATIC_URL }}js/JobRequestOverlay.js"></script>
+{% endblock content %}
+

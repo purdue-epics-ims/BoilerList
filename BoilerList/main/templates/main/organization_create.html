@@ -1,0 +1,77 @@
+{% extends "main/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+{% if show_dialog %}
+<div class="confirm alert alert-dismissible alert-info">
+    <i type="button" class="close fa fa-close" data-dismiss="alert"></i>
+    <h4>Create your organization here.  Community members will be able to search for your organization by name or categories you select.</h4>
+</div>
+{% endif %}
+
+<div class="panel-heading">
+  <div class="">
+    Create an organization
+  </div>
+</div>
+<div class = "jumbotron">
+  <form class="form-horizontal"  action="{% url 'organization_create' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+    <fieldset>
+      <div class="form-group">
+        Name
+        <div class="input-group">
+        <span class="input-group-addon" id="addon1">
+            <i class="fa fa-at"></i>
+        </span>
+        {% render_field form.name class+="form-control" placeholder="Organization Name" %}
+        </div>
+      </div>
+
+      <div class="form-group">
+          Website (optional, leave blank if none)
+          <div class="input-group">
+              <span class="input-group-addon" id="addon1">
+                  <i class="fa fa-globe"></i>
+              </span>
+              {% render_field form.url class+="form-control" placeholder="Organization Website" %}
+          </div>
+      </div>
+
+      <div class="form-group">
+        Description
+        <div class="input-group">
+        <span class="input-group-addon" id="addon1">
+            <i class="fa fa-quote-right"></i>
+        </span>
+        {% render_field form.description class+="form-control" placeholder="Organization Description" %}
+        </div>
+      </div>
+
+      <div class="form-group">
+        Category
+        <div class="input-group">
+        <span class="input-group-addon" id="addon1">
+          <i class="fa fa-list"></i>
+        </span>
+        {% render_field form.categories class+="form-control" placeholder="Organization Categories" %}
+        </div>
+      </div>
+
+      <div class="form-group">
+        Photo
+        <div class="input-group">
+        <span class="input-group-addon" id="addon1">
+          <i class="fa fa-image"></i>
+        </span>
+        {% render_field form.icon %}
+        </div>
+      </div>
+      <div class="form-group">
+        <input class="btn btn-primary" type="submit" value="Create Organization">
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+{% endblock %}

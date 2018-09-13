@@ -1,0 +1,330 @@
+/* -------------- Front Page -------------*/
+.user_create_button {
+    font-size: 200%;
+    white-space: normal;
+}
+::selection {
+	background: #ffb7b7; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+	background: #ffb7b7; /* Gecko Browsers */
+}
+.nav
+{
+	margin=0;
+}
+.jumbotron{
+	padding:50px 0 50px 0;
+}
+/* CSS used here will be applied after bootstrap.css */
+.badge-notify{
+	 background:#f04124;
+	 position:relative;
+	 top: -25px;
+	 left: -25px;
+
+	}
+.success{
+
+	background-color:#43ac6a ;
+
+}
+
+.warning{
+
+	background-color: #e99002;
+
+}
+
+.danger{
+  background-color: #f04124;
+}
+
+.icon {
+    height: 70px;
+    max-width: 150px;
+}
+
+/* ---------------Dashboards---------------------- */
+
+/* make bootswatch labels bigger */
+.dash-list .label{
+    font-size:18px;
+}
+/* add more padding to lists on dashboards */
+.dash-list .list-group-item{
+    padding:15px;
+}
+.notifications .read{
+    background-color:#E5E5E5;
+}
+
+.btn-file {
+	position: relative;
+	overflow: hidden;
+}
+.btn-file input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	font-size: 100px;
+	text-align: right;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	background: red;
+	cursor: inherit;
+	display: block;
+}
+input[readonly] {
+	background-color: white !important;
+	cursor: text !important;
+}
+
+
+.btn-glow {
+box-shadow: 1px 1px 12px #720000;
+}
+
+
+html{
+	min-height:100%;
+	position:relative;
+}
+body{
+	margin-bottom: 60px;
+}
+
+.user-profile {
+  display: inline-block;
+  width:50%;
+  border-radius:50%;
+  text-align:center;
+  padding:100% 100%;
+  line-height:10px;
+  position:relative;  /* Just making it pretty */
+  @shadow: rgba(0, 0, 0, .1);
+  @shadow-length: 4px;
+  -webkit-box-shadow: 0 @shadow-length 0 0 @shadow;
+          box-shadow: 0 @shadow-length 0 0 @shadow;
+  text-shadow: 0 @shadow-length 0 @shadow;
+  background: #008cba;
+  color: white;
+  font-family: Helvetica, Arial Black, sans;
+  font-size: 60px;
+  text-align:center;
+}
+.user-profile:hover{
+background:#e1d8d8;
+
+}
+
+.jumbotron {
+	padding : 40px;
+}
+
+
+
+
+.panel-heading{
+	background-color:#333333;
+	padding: 10px;
+	padding-left: 20px;
+	font-size:14pt;
+	color:white;
+	border-radius: 0px;
+}
+
+.input-table input{
+	padding: 5px;
+	padding-left: 20px;
+}
+
+.input-table span{
+	padding: 5px;
+	padding-left: 20px;
+	color: gray;
+}
+
+
+/*----------- Header ------------*/
+
+
+/*----------- Footer ------------*/
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+	color : #999;
+	background-color: #333;
+	text-align: center;
+}
+
+
+
+/*----------- Content ------------*/
+
+.custom-btn{
+	padding: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: #cc9900;
+	border: 2px solid #cc9900;
+	color: white;
+}
+
+.custom-btn:hover{
+	background-color: #997300;
+	border: 2px solid #997300;
+}
+
+.search-box .box{
+	display: inline-block;
+	width: 49%;
+}
+
+.search-box{
+	/* Hide any overflow on the gallery */
+	padding: 40px;
+	background: rgba(255, 255, 255, 0.5);
+
+
+}
+
+.search-box h1{
+	/* Hide any overflow on the gallery */
+	font-size: 50px;
+}
+
+.search-box .input-box{
+	padding: 10px;
+	padding-left: 20px;
+}
+
+.search-box .search-btn{
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: #cc9900;
+	border: 2px solid #cc9900;
+	color: white;
+}
+
+.search-box .search-btn:hover{
+	background-color: #997300;
+	border: 2px solid #997300;
+}
+
+
+/*----------- Gallery ------------*/
+.carousel{
+	/* Hide any overflow on the gallery */
+	height:400px;
+	overflow:hidden;
+}
+
+.carousel .container img{
+	display:block;
+	height: 100%;
+	max-width: 100%;
+	margin:auto;
+}
+
+.carousel .carousel-inner{
+	margin: 10px;
+}
+
+.carousel .carousel-caption{
+	margin: 20px;
+}
+
+.carousel .container{
+	/* make header/button stay at a fixed height within the gallery window */
+	height:400px;
+	width:100%;
+}
+
+/*----------- Login ------------*/
+
+.login td{
+	padding:10px;
+}
+
+#content {
+	max-width:800px;
+	margin:1% auto 70px auto;
+	background-color: #fcfcfc;
+}
+
+/*----------- Org profile -------------*/
+
+.profile-container .panel-heading{
+	background-color:#333333;
+	padding: 10px;
+	padding-left: 20px;
+	font-size:14pt;
+	color:white;
+	border-radius: 0px;
+}
+
+.profile-container .panel-body{
+	font-size:14pt;
+	padding-bottom: 0px;
+}
+
+.profile-container .panel{
+	margin-bottom: 0px;
+	border: 1px solid #f3f3f3;
+}
+
+.profile-container .well{
+	padding: 10px;
+}
+.profile-container img{
+	padding: 10px;
+	width: 100%;
+	background-color: white;
+}
+
+.profile-container .box{
+	width: 49%;
+	display: inline-block;
+}
+
+/*------------ Guided Job Creation -------------*/
+
+.org_list .org_item{
+    cursor:pointer;
+}
+
+.org_list .category{
+    cursor:pointer;
+}
+
+#org_results {
+    overflow: auto;
+    max-height:200px;
+}
+
+#org_selected {
+    overflow: auto;
+    max-height:300px;
+}
+
+.org_list .org_check{
+    height:40px;
+    width:40px;
+}
+
+.explanation {
+    width: 300px;
+    display: block;
+}
+
+div.hide { 
+    display: none;
+}

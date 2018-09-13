@@ -1,0 +1,111 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+{% if show_dialog %}
+    {% if user.userprofile.purdueuser %}
+        <div class="confirm alert alert-dismissible alert-info">
+            <i type="button" class="close fa fa-close" data-dismiss="alert"></i>
+            <h4> Here you can accept or reject job requests that you receive.  You can also make comments and suggestions to change the job request before accepting.</h4>
+        </div>
+    {% else %}
+        <div class="confirm alert alert-dismissible alert-info">
+            <i type="button" class="close fa fa-close" data-dismiss="alert"></i>
+            <h4> This page shows whether your job request has been accepted or declined by this organization.  You can also view comments and make changes to the job request here.</h4>
+        </div>
+    {% endif %}
+{% endif %}
+<div class="jumbotron jobrequest-overlay-block-content">
+  <center>
+    <h3>{{ jobrequest.job.name }}</h3>
+
+
+    <small>Created by</small> {{jobrequest.job.client_organization}}
+    {%if not request.user.userprofile.purdueuser%}
+    <br>
+    <small>submitted to</small> <a href="{% url 'organization_detail' jobrequest.organization.id %}">{{jobrequest.organization.name}}</a>
+    {%endif%}
+    <br><br>
+   <i class="fa fa-calendar"></i> Due on  <span class="badge "> {{jobrequest.job.duedate}}</span>
+
+   <br><br>
+   <!--form acton for Purdue group to accept/decline a jobrequest-->
+   {%if jobrequest.is_pending and perm_to_edit_jobrequest_state %}
+       <form action="{% url 'jobrequest_dash' jobrequest.organization.id jobrequest.job.id%}" method ="post">
+           {%csrf_token%}
+           <input type="hidden" name="jobrequest" value="{{jobrequest}}">
+           <button class="btn btn-success" type="submit" name="action" value="apply">Apply</button>
+           <button class="btn btn-danger" type="submit" name="action" value="notInterested">Not Interested</button>
+       </form>
+   {%else%}
+       {%if jobrequest.applied and not jobrequest.confirmed and not perm_to_edit_jobrequest_state%}
+       <form action="{% url 'jobrequest_dash' jobrequest.organization.id jobrequest.job.id%}" method ="post">
+           {%csrf_token%}
+           <input type="hidden" name="jobrequest" value="{{jobrequest}}">
+           <button class="btn btn-success" type="submit" name="action" value="confirm">Confirm Request</button>
+       </form>
+       {%endif%}
+   {%endif%}
+</div>
+
+<div class="panel panel-primary jobrequest-overlay-block-content">
+  <div class="panel-heading">
+    <h3 class="panel-title">Information about the Job</h3>
+  </div>
+  <div class="panel-body">
+    <div class="well well-sm information-body">
+        <b>Description</b>: {{jobrequest.job.description}}
+    </div>
+    <div class="well well-sm information-body">
+        <b>Contact Information</b>: {{jobrequest.job.contact_information}}
+    </div>
+    <div class="well well-sm information-body">
+        <b>Deliverable</b>: {{jobrequest.job.deliverable}}
+    </div>
+    <div class="well well-sm information-body">
+        <b>Stakeholders</b>: {{jobrequest.job.stakeholders}}
+    </div>
+    <div class="well well-sm information-body">
+        <b>Additional Information</b>: {{jobrequest.job.additional_information}}
+    </div>
+    <div class="well well-sm information-body">
+        <b>Budget</b>: {{jobrequest.job.budget}}
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-info comments jobrequest-overlay-block-content">
+  <div class="panel-heading">
+    <h3 class="panel-title">Comments</h3>
+  </div>
+  <div class="panel-body ">
+    {%if comments %}
+        {% for comment in comments %}
+            <span class="pull-left comment-header">
+                {% if comment.creator.userprofile.purdueuser %}
+                    <b>{{comment.creator}}</b> from <b><a href="{% url 'organization_detail' comment.jobrequest.organization.id %}">{{comment.jobrequest.organization}}</a></b>
+                {% else %}
+                    <b>{{comment.creator}}</b>
+                {% endif %}
+            </span>
+            <br>
+            <div class="well well-lg comment-body">
+                {{comment.text_comment}}
+                <br>
+                <div class="pull-right">{{comment.created}}</div>
+            </div>
+        {% endfor %}
+    {%else%}
+        <div class="well">
+            No comments
+        </div>
+    {%endif%}
+  </div>
+</div>
+
+<!-- form action to submit a comment -->
+<form class="form-horizontal jobrequest-overlay-block-content" method=POST name="comment" action="{% url 'jobrequest_dash' jobrequest.organization.id jobrequest.job.id %}">
+    {% csrf_token %}
+    <textarea class="form-control"  name="text_comment" placeholder="Leave your comments here!"></textarea>
+    <button type="submit" class="btn btn-primary pull-right" name="action" value="comment" style="margin-top: 10px; margin-bottom: 10px;">Submit</button>
+</form>
+{% endblock content %}

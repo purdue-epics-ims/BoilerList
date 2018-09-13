@@ -1,0 +1,4 @@
+You are the member of the following organization(s): <br>
+{% for related_org in membership.all %}
+<a href ="{% url 'organization_detail' related_org.id %}">{{related_org.name}}</a><br>
+{%endfor%}

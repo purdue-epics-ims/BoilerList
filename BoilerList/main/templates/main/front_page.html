@@ -1,0 +1,108 @@
+{% load staticfiles %}
+<html> 
+<head>
+        <link rel='stylesheet' type='text/css' href="/static/bootstrap.min.css"/>-->
+
+        <link rel="icon" type="image/png" href='/static/favicon.png'/>
+        <script type='text/javascript' src="/static/jquery.min.js"></script>
+        <script type='text/javascript' src="/static/js/Utilities.js"></script>
+        <script type='text/javascript' src="/static/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <link rel='stylesheet' type='text/css' href='/static/style.css'/>
+
+        <title>
+            BoilerList - Connecting Jobs with Service Organizations
+        </title>
+    </head>
+
+    <body>
+        
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+
+                <!------------ NAVBAR ----->
+                <div class="navbar-header">
+                    <a  class="navbar-brand" rel="home" href="/" title="BoilerList">
+                    <img draggable="false" style="max-width:27px;margin-top:-3px;margin-right:-7px;"
+                            src='/static/brand.png'>
+                    </a>
+                    <a href="/" class="navbar-brand">BoilerList</a>
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar-main">
+                    <ul class="nav navbar-nav navbar-left">
+                    <li><a href="/about">About</a></li>
+                    </ul>
+                    <!--------- Logged in user navbar ------------>
+
+                    
+                    <ul class="nav navbar-nav navbar-right">
+
+                    <li>
+                        <p class="navbar-btn">
+                        <a style="margin-right:5px;" href="/login" class="btn btn-default">Login</a>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="navbar-btn">
+                        <a href="/user/create/community" class="btn btn-primary">Join</a>
+                        </p>
+                    </li>
+
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+        
+
+
+        <br><br><br>
+        <div class="container container-fluid">
+
+        <!--------------- Form Messages ------------------->
+
+        
+
+        <!--------------- Generic Message --------------->
+        
+
+        <!-------------- Main Page Content ------------------>
+
+        
+
+<!----------- Search ---------->
+                <div class="jumbotron">
+                    <!--center><h1>Welcome to BoilerList</h1></center-->
+                    <center><p><b>Welcome to the Purdue University Service-Learning Portal- BoilerList! <br>This portal serves to facilitate the development of sustainable partnerships in service-learning between faculty, staff, students, and community partners.<br> The portal does three things: </p></center>
+                    <center><p>_____________________________________________________________________________________</p></center>
+                    <!--center><p>Connecting community needs with skilled campus groups</p></center-->
+                    <left><li>Allows agencies to share meaningful projects that will contribute to social and systemic change in the community</li></left>
+                    <left><li>Connects agencies to faculty, staff, and students through service-learning courses</li></left>
+                    <left><li>Provides faculty and staff with an opportunity to develop curricula that will match the need of agencies</li></left>
+                    <br />
+                    <br />
+                    <img style="max-width: 340px;max-height: 340px" src="{% static '0237-student getting help.jpg' %}">
+                    <img style ="max-width: 335px;max-height: 230px"src='{% static 'Picture1.png' %}'>
+                    <img style="max-width: 340px;max-height: 340px" src="{% static '0243-student with college student.jpg' %}">
+
+                </div>
+
+
+                <script>
+                    document.body.style.background = white;
+                </script>
+             </div>
+
+
+
+</body>
+
+
+</html>
