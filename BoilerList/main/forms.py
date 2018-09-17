@@ -8,8 +8,8 @@ from .widgets import *
 
 class OrganizationCreateForm(ModelForm):
     class Meta:
-		model = Organization
-		fields = ['name','url','description','categories','icon']
+        model = Organization
+        fields = ['name','url','description','categories','icon']
 
 class OrganizationEditForm(ModelForm):
 
