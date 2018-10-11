@@ -10,7 +10,7 @@
 
 <div class="panel-heading">
   <div class="">
-    Create an organization
+    Create a faculty proposal
   </div>
 </div>
 <div class = "jumbotron">
@@ -19,12 +19,12 @@
 
     <fieldset>
       <div class="form-group">
-        Name
+        Service Team Name
         <div class="input-group">
         <span class="input-group-addon" id="addon1">
             <i class="fa fa-at"></i>
         </span>
-        {% render_field form.name class+="form-control" placeholder="Organization Name" %}
+        {% render_field form.name class+="form-control" placeholder="Enter Your Service Team Name" %}
         </div>
       </div>
 
@@ -38,17 +38,28 @@
           </div>
       </div>
 
+
       <div class="form-group">
-        Description
+        Contact Information
         <div class="input-group">
         <span class="input-group-addon" id="addon1">
-            <i class="fa fa-quote-right"></i>
+            <i class="fa fa-at"></i>
         </span>
-        {% render_field form.description class+="form-control" placeholder="Organization Description" %}
+        {% render_field form.name class+="form-control" placeholder="eg. emails, phone number" %}
         </div>
       </div>
 
       <div class="form-group">
+        Breifly describe how you can help the commnity partner
+        <div class="input-group">
+        <span class="input-group-addon" id="addon1">
+            <i class="fa fa-quote-right"></i>
+        </span>
+        {% render_field form.description class+="form-control" placeholder="Enter description" %}
+        </div>
+      </div>
+
+    <!-- <div class="form-group">
         Category
         <div class="input-group">
         <span class="input-group-addon" id="addon1">
@@ -66,7 +77,8 @@
         </span>
         {% render_field form.icon %}
         </div>
-      </div>
+      </div> -->
+
       <div class="form-group">
         <input class="btn btn-primary" type="submit" value="Create Organization">
       </div>

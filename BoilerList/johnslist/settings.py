@@ -21,7 +21,7 @@ except:
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
-PROJECT_NAME="BoilerConnect"
+PROJECT_NAME="BoilerList"
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # NOTE: set variable in secret_settings.py
