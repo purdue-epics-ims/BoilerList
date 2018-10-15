@@ -9,13 +9,24 @@ from .widgets import *
 class OrganizationCreateForm(ModelForm):
     class Meta:
         model = Organization
-        fields = ['name','url','description','categories','icon']
+        fields = ['name', 'url', 'description', 'contactinfo', 'selectedproposal']
+        #fields = ['name','url','description','categories','icon']
 
 class OrganizationEditForm(ModelForm):
+    class Meta:
+        model = Organization
+        fields = ['name', 'url', 'description', 'contactinfo', 'selectedproposal', 'categories', 'icon', 'available']
+		#fields = ['name','url','description','categories','icon','available']
 
-	class Meta:
-		model = Organization
-		fields = ['name','url','description','categories','icon','available']
+#class OrganizationCreateForm(ModelForm):
+#    class Meta:
+#        model = Organization
+#        fields = ['name', 'url', 'contactinfo', 'description', 'selectedproposal']
+#
+#class OrganizationEditForm(ModelForm):
+#	class Meta:
+#		model = Organization
+#		fields = ['name', 'url', 'contactinfo', 'description', 'selectedproposal', 'available']
 
 class JobForm(ModelForm):
     def save(self, request, commit = True):
@@ -101,8 +112,10 @@ class JobForm(ModelForm):
             cat = cat + str(job.voting) + ","
         if job.other:
             cat = cat + str(job.other) + ","    
-        msg = "Project Title:" + str(job.name) + "\n" + "Community Partner & Project Coordinator:" + str(job.client_organization) + "\n" + "Contact Information:" + str(job.contact_information) + "\n" + "Briefly describe the product or service that you expect as a result of this project:" + str(job.deliverable) + "\n" + "Specify the volunteer skill sets required:" + str(job.skill_required) + "\n" + "Specify the date when this project is due. If you are not sure of the exact date, give a close approximation:" + str(job.duedate) + "\n" + "Specify the number of hours the volunteer needs to work per day/week:" + str(job.hours_day) + "\n" + "Give a short description of the job of a volunteer:" + str(job.description) + "\n" + "Categories" + cat
-        send_mail('Boilerlist - New Job Request Submitted', msg, 'boilerconnect1@gmail.com', ['paynel@purdue.edu'], fail_silently = False,)
+
+
+        #msg = "Project Title:" + str(job.name) + "\n" + "Community Partner & Project Coordinator:" + str(job.client_organization) + "\n" + "Contact Information:" + str(job.contact_information) + "\n" + "Briefly describe the product or service that you expect as a result of this project:" + str(job.deliverable) + "\n" + "Specify the volunteer skill sets required:" + str(job.skill_required) + "\n" + "Specify the date when this project is due. If you are not sure of the exact date, give a close approximation:" + str(job.duedate) + "\n" + "Specify the number of hours the volunteer needs to work per day/week:" + str(job.hours_day) + "\n" + "Give a short description of the job of a volunteer:" + str(job.description) + "\n" + "Categories" + cat
+        #send_mail('Boilerlist - New Job Request Submitted', msg, 'boilerconnect1@gmail.com', ['paynel@purdue.edu'], fail_silently = False,)
         return job
 
 class JobCreateForm(JobForm):

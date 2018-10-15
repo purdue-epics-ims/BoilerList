@@ -46,9 +46,11 @@ class Organization(models.Model):
 
     name = models.CharField('Organization Name',max_length=64)
     description = models.TextField('Organization Description')
+    contactinfo = models.CharField('Contact Information',max_length=64, null=True)
+    selectedproposal = models.CharField('Selected Community Proposal',max_length=64, null=True)
     categories = models.ManyToManyField(Category, related_name = 'organizations')  # Category =-= Organization
     group = models.OneToOneField(Group) # Organization - Group
-    url = models.URLField('Website', default="http://", blank=True)
+    url = models.URLField('Website', blank=True)
     phone_number = models.CharField('Organization phone number',max_length=64)
     icon = models.ImageField(upload_to='organization', null=True)
     available = models.BooleanField(default=True,choices=((True, "Accepting Jobs"),(False, "Not accepting Jobs")))

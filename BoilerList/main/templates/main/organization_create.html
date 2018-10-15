@@ -19,10 +19,10 @@
 
     <fieldset>
       <div class="form-group">
-        Service Team Name
+        Service team name
         <div class="input-group">
         <span class="input-group-addon" id="addon1">
-            <i class="fa fa-at"></i>
+            <i class="fa fa-user"></i>
         </span>
         {% render_field form.name class+="form-control" placeholder="Enter Your Service Team Name" %}
         </div>
@@ -34,7 +34,7 @@
               <span class="input-group-addon" id="addon1">
                   <i class="fa fa-globe"></i>
               </span>
-              {% render_field form.url class+="form-control" placeholder="Organization Website" %}
+              {% render_field form.url class+="form-control" placeholder="http://" %}
           </div>
       </div>
 
@@ -43,9 +43,9 @@
         Contact Information
         <div class="input-group">
         <span class="input-group-addon" id="addon1">
-            <i class="fa fa-at"></i>
+            <i class="fa fa-phone"></i>
         </span>
-        {% render_field form.name class+="form-control" placeholder="eg. emails, phone number" %}
+        {% render_field form.contactinfo class+="form-control" placeholder="eg. emails, phone number" %}
         </div>
       </div>
 
@@ -53,9 +53,19 @@
         Breifly describe how you can help the commnity partner
         <div class="input-group">
         <span class="input-group-addon" id="addon1">
-            <i class="fa fa-quote-right"></i>
+            <i class="fa fa-comments"></i>
         </span>
         {% render_field form.description class+="form-control" placeholder="Enter description" %}
+        </div>
+      </div>
+
+      <div class="form-group">
+        Proposal selected
+        <div class="input-group">
+        <span class="input-group-addon" id="addon1">
+            <i class="fa fa-at"></i>
+        </span>
+        {% render_field form.selectedproposal class+="form-control" placeholder="Please identify which community proposal this is responding to" %}
         </div>
       </div>
 
@@ -80,7 +90,7 @@
       </div> -->
 
       <div class="form-group">
-        <input class="btn btn-primary" type="submit" value="Create Organization">
+        <input class="btn btn-primary" type="submit" value="Create Faculty Proposal">
       </div>
     </fieldset>
   </form>
