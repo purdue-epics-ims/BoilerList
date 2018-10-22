@@ -15,7 +15,7 @@ class OrganizationCreateForm(ModelForm):
 class OrganizationEditForm(ModelForm):
     class Meta:
         model = Organization
-        fields = ['name', 'url', 'description', 'contactinfo', 'selectedproposal', 'categories', 'icon', 'available']
+        fields = ['name', 'url', 'description', 'contactinfo', 'selectedproposal']
 		#fields = ['name','url','description','categories','icon','available']
 
 #class OrganizationCreateForm(ModelForm):

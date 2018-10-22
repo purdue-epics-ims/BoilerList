@@ -25,12 +25,31 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-8">
+  <div class="col-sm-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Existing Job Proposals
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          {% for job in jobs %}
+          <a class="list-group-item" href="{% url 'job_dash' job.id %}">
+            {{ job.name }}
+          </a>
+          {% endfor %}
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-sm-6">
     {% for org in organizations %}
     <div class="panel panel-primary">
 
       <div class="panel-heading panel-title">
-          Job Requests for: <a href="{% url 'organization_detail' org.id %}">{{ org.name }}</a>
+          Your Faculty Proposal: <a href="{% url 'organization_detail' org.id %}">{{ org.name }}</a>
           <a href="{% url 'organization_settings' org.id %}"><i class="fa fa-cog pull-right"></i></a>
       </div>
       <div class="panel-body">
@@ -54,6 +73,7 @@
     </div>
     {% endfor %}
   </div>
+
 </div>
 
 {% endblock content %}
