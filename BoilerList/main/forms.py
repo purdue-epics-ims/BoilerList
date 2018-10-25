@@ -9,13 +9,13 @@ from .widgets import *
 class OrganizationCreateForm(ModelForm):
     class Meta:
         model = Organization
-        fields = ['name', 'url', 'description', 'contactinfo', 'selectedproposal']
+        fields = ['name', 'url', 'description', 'contactinfo', 'selectedproposal', 'facultystaffname', 'coursetitle', 'department', 'freshman', 'sophomore', 'junior', 'senior', 'grad']
         #fields = ['name','url','description','categories','icon']
 
 class OrganizationEditForm(ModelForm):
     class Meta:
         model = Organization
-        fields = ['name', 'url', 'description', 'contactinfo', 'selectedproposal']
+        fields = ['name', 'url', 'description', 'contactinfo', 'selectedproposal', 'facultystaffname', 'coursetitle', 'department', 'freshman', 'sophomore', 'junior', 'senior', 'grad']
 		#fields = ['name','url','description','categories','icon','available']
 
 #class OrganizationCreateForm(ModelForm):

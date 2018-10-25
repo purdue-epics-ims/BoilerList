@@ -45,9 +45,22 @@ class Organization(models.Model):
         return self.name
 
     name = models.CharField('Organization Name',max_length=64)
+    #narrative, including learning outcomes and general course description
     description = models.TextField('Organization Description')
     contactinfo = models.CharField('Contact Information',max_length=64, null=True)
     selectedproposal = models.CharField('Selected Community Proposal',max_length=64, null=True)
+    #faculty/staff name; course title; department (provide example so they write it out fully, 
+    #i.e. Environmental and Ecological Engineering); 
+    facultystaffname = models.CharField('Faculty / Staff Name', max_length=64, null=True)
+    coursetitle = models.CharField('Course Title', max_length=64, null=True)
+    department = models.CharField('Department', max_length=64, null=True)   
+    #level (pull down, check all that apply-freshman, sophomore, junior, senior, grad); 
+    freshman = models.BooleanField(default = False)
+    sophomore = models.BooleanField(default = False)
+    junior = models.BooleanField(default = False)
+    senior = models.BooleanField(default = False)
+    grad = models.BooleanField(default = False)
+
     categories = models.ManyToManyField(Category, related_name = 'organizations')  # Category =-= Organization
     group = models.OneToOneField(Group) # Organization - Group
     url = models.URLField('Website', blank=True)

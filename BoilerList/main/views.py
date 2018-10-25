@@ -68,12 +68,11 @@ def user_dash(request):
 
     if user.userprofile.purdueuser:
         orgs = [group.organization for group in user.groups.all()]
-        jobs = user.jobs.all()
+        #jobs = user.jobs.all()
 
         return render(request,
                       'main/purdueuser_dash.html',
                       {'user_dash': user,
-                       'jobs':jobs,
                        'organizations':orgs,
                        'unread_notifications':unread_notifications,
                        'read_notifications':read_notifications,

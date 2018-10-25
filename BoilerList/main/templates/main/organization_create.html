@@ -29,6 +29,26 @@
       </div>
 
       <div class="form-group">
+        Course Title
+        <div class="input-group">
+        <span class="input-group-addon" id="addon1">
+            <i class="fa fa-phone"></i>
+        </span>
+        {% render_field form.coursetitle class+="form-control" placeholder="eg. EPICS 101" %}
+        </div>
+      </div>
+
+      <div class="form-group">
+        Faculty / Staff Name
+        <div class="input-group">
+        <span class="input-group-addon" id="addon1">
+            <i class="fa fa-users"></i>
+        </span>
+        {% render_field form.facultystaffname class+="form-control" placeholder="Enter faculty / staff name" %}
+        </div>
+      </div>
+
+      <div class="form-group">
           Website (optional, leave blank if none)
           <div class="input-group">
               <span class="input-group-addon" id="addon1">
@@ -38,6 +58,15 @@
           </div>
       </div>
 
+      <div class="form-group">
+        Department
+        <div class="input-group">
+        <span class="input-group-addon" id="addon1">
+            <i class="fa fa-phone"></i>
+        </span>
+        {% render_field form.department class+="form-control" placeholder="Please provide full department name: eg. Environmental and Ecological Engineering" %}
+        </div>
+      </div>
 
       <div class="form-group">
         Contact Information
@@ -55,9 +84,20 @@
         <span class="input-group-addon" id="addon1">
             <i class="fa fa-comments"></i>
         </span>
-        {% render_field form.description class+="form-control" placeholder="Enter description" %}
+        {% render_field form.description class+="form-control" placeholder="Enter description, please include learning outcomes and general course description" %}
         </div>
       </div>
+
+    <div class="form-group">
+       Which level of students would your class include:
+        <form action='url' method='post'> {% csrf_token %}
+            <br><input type="checkbox" name="freshman" value="Yes">Freshman students
+            <br><input type="checkbox" name="sophomore" value="Yes">Sophomore students
+            <br><input type="checkbox" name="junior" value="Yes">Junior students
+            <br><input type="checkbox" name="senior" value="Yes">Senior students
+            <br><input type="checkbox" name="grad" value="Yes">Graduate students 
+        </form>
+    </div>
 
       <div class="form-group">
         Proposal selected

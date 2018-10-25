@@ -6,6 +6,7 @@ from django.forms.utils import flatatt
 
 from main.models import *
 
+
 # widget for displaying checkboxes for categories by group
 class CategorySelect(CheckboxSelectMultiple):
     input_type = None  # Subclasses must define this.
