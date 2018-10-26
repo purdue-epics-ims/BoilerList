@@ -51,7 +51,7 @@ def login(request):
             else:
                 return redirect('user_dash')
         else:
-            message = "There was a problem with your login.  Please try again." 
+            message = "There was a problem with your login.  Please try again."
             messages.add_message(request, messages.ERROR, message)
 
     return render(request,'main/login.html')
@@ -470,7 +470,7 @@ def job_settings(request,job_id):
 @login_required
 def job_status_update(request):
     status = request.GET['status']
-    job_id = request.GET['Jobid'] 
+    job_id = request.GET['Jobid']
     if status == 'Active':
         flag = True
     else:
@@ -490,7 +490,7 @@ def job_status_update(request):
 @login_required
 def job_approve_update(request):
     status = request.GET['approve']
-    job_id = request.GET['Jobid'] 
+    job_id = request.GET['Jobid']
     if approve == 'Yes':
         flag = True
     else:
@@ -502,7 +502,7 @@ def job_approve_update(request):
         return HttpResponse(status)
     except Exception as e:
         return JsonResponse(status)
-   
+
 
 @login_required
 def delete_job(request):
@@ -510,7 +510,6 @@ def delete_job(request):
      job = Job.objects.get(pk=job_id)
      try:
          job.delete()
-         return JsonResponse({'url':'/user'}) 
+         return JsonResponse({'url':'/user'})
      except Exception as e:
          return HttpResponse("deletion not successful")
-     

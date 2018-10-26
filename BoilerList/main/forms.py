@@ -72,7 +72,7 @@ class JobForm(ModelForm):
         # make a request to all the new organizations
         # get the organizations we should request from the categories
         category_orgs = Organization.objects.filter(categories__in = job.categories.all())
-        
+
         #for org in self.cleaned_data['organizations'] | category_orgs:
         #    if org not in job.organizations.all():
         #        verb = "submitted"
@@ -81,7 +81,7 @@ class JobForm(ModelForm):
         #        link = request.build_absolute_uri(reverse('organization_dash', kwargs={'organization_id': org.pk}) + "?jobrequestID=" + str(jr.id))
         #        for user in organization.group.user_set.all():
         #            send_mail('BoilerConnect - New Job submitted', 'There is a job created for your organization. Click on the link to see the request. {0}'.format(link),'boilerconnect1@gmail.com', [user.email], fail_silently=False)
-        # '''   
+        # '''
         # do we want the user to be able to delete requests or categories?
         # # remove deleted categories
         # for cat in job.categories.all():
@@ -139,7 +139,7 @@ class JobForm(ModelForm):
         if job.voting:
             cat = cat + str(job.voting) + ","
         if job.other:
-            cat = cat + str(job.other) + ","    
+            cat = cat + str(job.other) + ","
 
 
         #msg = "Project Title:" + str(job.name) + "\n" + "Community Partner & Project Coordinator:" + str(job.client_organization) + "\n" + "Contact Information:" + str(job.contact_information) + "\n" + "Briefly describe the product or service that you expect as a result of this project:" + str(job.deliverable) + "\n" + "Specify the volunteer skill sets required:" + str(job.skill_required) + "\n" + "Specify the date when this project is due. If you are not sure of the exact date, give a close approximation:" + str(job.duedate) + "\n" + "Specify the number of hours the volunteer needs to work per day/week:" + str(job.hours_day) + "\n" + "Give a short description of the job of a volunteer:" + str(job.description) + "\n" + "Categories" + cat

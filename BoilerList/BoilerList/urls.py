@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-from johnslist import settings
+from BoilerList import settings
 from main import urls
 from django.views.static import serve
 # import notifications

@@ -108,7 +108,7 @@ def populate():
     for job_name in jobs:
         print '    '+job_name
         job = Job.objects.create(name=job_name,
-                                description='Description of the job',                
+                                description='Description of the job',
                                 deliverable='deliverable',
                                 #stakeholders='stakeholders',
                                 #additional_information='additional_information',
@@ -129,7 +129,7 @@ def populate():
 
 
 if __name__ == '__main__':
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'johnslist.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BoilerList.settings')
     import django
     django.setup()
     if os.path.exists("db.sqlite3"):
@@ -139,7 +139,7 @@ if __name__ == '__main__':
     call_command('migrate', 'main', interactive=False)
     from django.core.files import File
     from main.models import *
-    from johnslist.settings import PIC_POPULATE_DIR
+    from BoilerList.settings import PIC_POPULATE_DIR
     from time import sleep
 
     populate()

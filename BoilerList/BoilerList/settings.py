@@ -1,5 +1,5 @@
 """
-Django settings for johnslist project.
+Django settings for BoilerList project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -73,9 +73,9 @@ AUTHENTICATION_BACKENDS = (
     'guardian.backends.ObjectPermissionBackend',
 )
 
-ROOT_URLCONF = 'johnslist.urls'
+ROOT_URLCONF = 'BoilerList.urls'
 
-WSGI_APPLICATION = 'johnslist.wsgi.application'
+WSGI_APPLICATION = 'BoilerList.wsgi.application'
 
 TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',

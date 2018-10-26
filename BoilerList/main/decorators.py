@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from guardian.shortcuts import get_perms_for_model
-from johnslist.settings import REDIRECT_URL
+from BoilerList.settings import REDIRECT_URL
 from .models import *
 from django.contrib import messages
 
@@ -48,7 +48,7 @@ def user_has_perm(perm):
 
             #just check if user id is equal
             elif 'user_id' in kwargs.keys():
-                
+
                 if request.user == User.objects.get(id=kwargs['user_id']):
                     success = True
                 else:

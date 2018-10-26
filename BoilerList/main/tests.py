@@ -2,7 +2,7 @@ from main.models import *
 from django.test import TestCase
 from django.core.files import File
 from django.core.urlresolvers import reverse
-from johnslist.settings import PIC_POPULATE_DIR
+from BoilerList.settings import PIC_POPULATE_DIR
 from main.forms import*
 #for login test
 from django.contrib.auth.models import AnonymousUser
@@ -146,7 +146,7 @@ class JobTestCase(TestCase):
 
     ### Backend Tests ###
 
-    #ensure job is editable by creator 
+    #ensure job is editable by creator
     def test_permissions(self):
         self.assertTrue(self.u_cp.has_perm('edit_job',self.j))
         self.assertTrue(self.u_cp.has_perm('view_job',self.j))
@@ -381,7 +381,7 @@ class OrganizationTestCase(TestCase):
 
     #test org creation
     def test_organization_create(self):
-        from johnslist.settings import PIC_POPULATE_DIR
+        from BoilerList.settings import PIC_POPULATE_DIR
         #when user is not logged in
         response = self.client.post(reverse('organization_create'))
         self.assertEqual(response.status_code, 302)
@@ -406,7 +406,7 @@ class OrganizationTestCase(TestCase):
 
     #changing the organization attributes
     def test_organization_settings(self):
-        self.o.group.user_set.add(self.u2) 
+        self.o.group.user_set.add(self.u2)
         login_as(self, self.u2.username, 'asdf')
         response = self.client.post(reverse('organization_settings',
                                             kwargs = {'organization_id': self.o.pk}),

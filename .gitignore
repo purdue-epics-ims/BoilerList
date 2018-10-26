@@ -16,3 +16,4 @@ obj/
 bin/
 media/
 *.sln
+venv/
