@@ -31,6 +31,29 @@
       </div>
     </div>
 
+
+    Course Title
+    <div class="form-group">
+      <div class="input-group">
+          <span class="input-group-addon" id="addon1">
+            <i class="fa fa-columns"></i>
+          </span>
+
+          {% render_field modelform.coursetitle class+="form-control" %}
+      </div>
+    </div>
+
+    Faculty / Staff Name
+    <div class="form-group">
+      <div class="input-group">
+          <span class="input-group-addon" id="addon1">
+            <i class="fa fa-users"></i>
+          </span>
+
+          {% render_field modelform.facultystaffname class+="form-control" %}
+      </div>
+    </div>
+
     Website (optional, leave blank if none)
     <div class="form-group">
         <div class="input-group">
@@ -39,6 +62,17 @@
             </span>
             {% render_field modelform.url class+="form-control" %}
         </div>
+    </div>
+
+    Department
+    <div class="form-group">
+      <div class="input-group">
+          <span class="input-group-addon" id="addon1">
+            <i class="fa fa-university"></i>
+          </span>
+
+          {% render_field modelform.department class+="form-control" %}
+      </div>
     </div>
 
     Contact Information
@@ -62,16 +96,27 @@
     </div>
 
 
-    Proposal selected
-    <div class="form-group">
-      <div class="input-group">
-          <span class="input-group-addon" id="addon1">
-            <i class="fa fa-at"></i>
-          </span>
 
-          {% render_field modelform.selectedproposal class+="form-control" %}
-      </div>
+    <div class="form-group">
+       Which level of students would your class include:
+            <br><input type="checkbox" name="freshman" value="Yes" {% if modelform.freshman %}checked{% endif %}>Freshman
+            <br><input type="checkbox" name="modelform.sophomore" value="Yes">Sophomore students
+            <br><input type="checkbox" name="modelform.junior" value="Yes">Junior students
+            <br><input type="checkbox" name="modelform.senior" value="Yes">Senior students
+            <br><input type="checkbox" name="modelform.grad" value="Yes">Graduate students 
     </div>
+
+        Proposal selected
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon" id="addon1">
+                <i class="fa fa-at"></i>
+              </span>
+
+              {% render_field modelform.selectedproposal class+="form-control" %}
+          </div>
+        </div>
+
   
     </div>
 

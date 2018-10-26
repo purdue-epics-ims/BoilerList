@@ -6,17 +6,45 @@ from .models import*
 from django.core.mail import send_mail
 from .widgets import *
 
+class OrgForm(ModelForm):
+    def save(self, request, commit = True):
+        # make the user from the request the creator of the job
+        org = super(OrgForm, self).save(commit = False)
+        org.creator = request.user
+        org.save()
+
+        # make a request to all the new organizations
+        # get the organizations we should request from the categories
+        category_orgs = Organization.objects.filter(categories__in = job.categories.all())
+
+        level = ""
+        if org.freshman:
+            level = level + str(org.freshman) + ","
+        if org.sophomore:
+            level = level + str(org.sophomore) + ","
+        if org.junior:
+            level = level + str(org.junior) + ","
+        if org.senior:
+            level = level + str(org.senior) + ","
+        if org.grad:
+            level = level + str(org.grad) + ","
+
+        #msg = "Project Title:" + str(job.name) + "\n" + "Community Partner & Project Coordinator:" + str(job.client_organization) + "\n" + "Contact Information:" + str(job.contact_information) + "\n" + "Briefly describe the product or service that you expect as a result of this project:" + str(job.deliverable) + "\n" + "Specify the volunteer skill sets required:" + str(job.skill_required) + "\n" + "Specify the date when this project is due. If you are not sure of the exact date, give a close approximation:" + str(job.duedate) + "\n" + "Specify the number of hours the volunteer needs to work per day/week:" + str(job.hours_day) + "\n" + "Give a short description of the job of a volunteer:" + str(job.description) + "\n" + "Categories" + cat
+        #send_mail('Boilerlist - New Job Request Submitted', msg, 'boilerconnect1@gmail.com', ['paynel@purdue.edu'], fail_silently = False,)
+        return org
+
+#class OrganizationCreateForm(OrgForm):
 class OrganizationCreateForm(ModelForm):
     class Meta:
         model = Organization
         fields = ['name', 'url', 'description', 'contactinfo', 'selectedproposal', 'facultystaffname', 'coursetitle', 'department', 'freshman', 'sophomore', 'junior', 'senior', 'grad']
-        #fields = ['name','url','description','categories','icon']
+        #widgets = {'freshman': CategorySelect()}
 
+#class OrganizationEditForm(OrgForm):
 class OrganizationEditForm(ModelForm):
     class Meta:
         model = Organization
         fields = ['name', 'url', 'description', 'contactinfo', 'selectedproposal', 'facultystaffname', 'coursetitle', 'department', 'freshman', 'sophomore', 'junior', 'senior', 'grad']
-		#fields = ['name','url','description','categories','icon','available']
 
 #class OrganizationCreateForm(ModelForm):
 #    class Meta:
