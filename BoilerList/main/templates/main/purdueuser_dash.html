@@ -20,7 +20,7 @@
 <div class="form-group">
 
     <a href="{% url 'user_settings' %}"><button class="btn btn-info"> <i class="fa fa-cog"></i> User Settings</button></a>
-    <a href = "{% url 'organization_create' %}" class="btn btn-danger"> <i class="fa fa-plus"></i> Create a Faculty Proposal</a>
+    <!--<a href = "{% url 'organization_create' %}" class="btn btn-danger"> <i class="fa fa-plus"></i> Create a Faculty Proposal</a>-->
 
 </div>
 
@@ -45,12 +45,32 @@
   </div>
 
   <div class="col-sm-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Your Faculty Proposals
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          {% for org in organizations %}
+          <a class="list-group-item" href="{% url 'organization_dash' org.id %}"> 
+            {{ org.name }} 
+          </a>
+          {% endfor %}
+          <br>
+          <a href = "{% url 'organization_create' %}" class="btn btn-danger"> <i class="fa fa-plus"></i> Create a Faculty Proposal</a>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!--<div class="col-sm-6">
     {% for org in organizations %}
     <div class="panel panel-primary">
 
       <div class="panel-heading panel-title">
           Your Faculty Proposal: <a href="{% url 'organization_detail' org.id %}">{{ org.name }}</a>
-          <a href="{% url 'organization_settings' org.id %}"><i class="fa fa-cog pull-right"></i></a>
+          <a href="{% url 'organization_settings' org.id %}"><i class="fa fa-cog pull-right"></i></a>   ----- this is the button to the setting
       </div>
       <div class="panel-body">
         <ul class="list-group dash-list">
@@ -72,7 +92,7 @@
       </div>
     </div>
     {% endfor %}
-  </div>
+  </div>-->
 
 </div>
 
