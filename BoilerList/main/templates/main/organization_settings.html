@@ -10,7 +10,7 @@
 </div>
 
 <div class="form-group">
-  <a href="{% url 'user_dash' %}"><button class="btn btn-primary">Back</button></a>
+  <a href="{% url 'organization_dash' organization.id %}"><button class="btn btn-primary">Back</button></a>
 </div>
 
 <form action="{% url 'organization_settings' organization.id %}" method="post">

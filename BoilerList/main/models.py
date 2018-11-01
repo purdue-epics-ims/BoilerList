@@ -61,6 +61,11 @@ class Organization(models.Model):
     senior = models.BooleanField(default = False)
     grad = models.BooleanField(default = False)
 
+    status = models.IntegerField(default = 0, choices = ((0, 'Pending'), (1, 'Approved'), (2, 'Disapproved'), (3, 'Closed')))
+    active = models.BooleanField(default = True)
+    approve = models.BooleanField(default = True) # add to admin side, already showing on community agency side, not yet on faculty side
+ 
+
     categories = models.ManyToManyField(Category, related_name = 'organizations')  # Category =-= Organization
     group = models.OneToOneField(Group) # Organization - Group
     url = models.URLField('Website', blank=True)
