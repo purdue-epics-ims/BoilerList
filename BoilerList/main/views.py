@@ -348,7 +348,7 @@ def organization_create(request):
             organization.save()
             form.save_m2m()
 
-            message = "Organization {0} created.  You are ready to begin receiving jobs.".format( organization.name )
+            message = "Faculty proposal {0} created.".format( organization.name )
             messages.add_message(request, messages.INFO, message)
             return redirect('user_dash')
 
@@ -514,3 +514,13 @@ def delete_job(request):
          return JsonResponse({'url':'/user'})
      except Exception as e:
          return HttpResponse("deletion not successful")
+
+@login_required
+def delete_organization(request):
+    organization_id = request.GET['Organizationid']
+    organization = Organization.objects.get(pk=organization_id)
+    try:
+        organization.delete()
+        return JsonResponse({'url':'/user'})
+    except Exception as e:
+        return HttpResponse("deletion not successful")

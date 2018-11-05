@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^organization/(?P<organization_id>[0-9]+)/?$', views.organization_detail,name='organization_detail'),
     url(r'^organization/create/?$', views.organization_create,name='organization_create'),
     url(r'^organization/(?P<organization_id>[0-9]+)/edit/?$', views.organization_settings,name='organization_settings'),
+    url(r'^organization/organization_delete/$', views.delete_organization),
     #job urls
     url(r'^job/(?P<job_id>[0-9]+)/dash/?$', views.job_dash,name='job_dash'),
     url(r'^organization/(?P<organization_id>[0-9]+)/job/(?P<job_id>[0-9]+)/?$', views.jobrequest_dash,name='jobrequest_dash'),

@@ -5,7 +5,7 @@
 {% if show_dialog %}
 <div class="confirm alert alert-dismissible alert-info">
     <i type="button" class="close fa fa-close" data-dismiss="alert"></i>
-    <h4> This page shows all notifications for organizations that you a part of.  You need to create an organization before you can begin receiving job requests.  Click the red 'Create Organization' button below to create an organization.</h4>
+    <h4> This page shows all faculty proposals that you have created.  You need to create a proposal before you can see them.  Click the red 'Create a Faculty Proposal' button below to create an organization.</h4>
 </div>
 {% endif %}
 
@@ -32,7 +32,7 @@
       </div>
       <div class="panel-body">
         <ul class="list-group">
-          {% for job in jobs %}
+          {% for job in Job %}
           <a class="list-group-item" href="{% url 'job_dash' job.id %}">
             {{ job.name }}
           </a>
