@@ -89,27 +89,24 @@
            <button type="button" id ="Deactive" class="btn btn-primary" onClick="doTask(this.id)">Deactivate</button>
            <button type="button" class="btn btn-primary" onclick="doDelete()">Dissolve</button>
            <script>
-               function doDelete(){
-
-                 $.ajax({
-                     url: '/organization/organization_delete/', 
-                     data: {
-                         'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
-                         'Organizationid': {{organization.id}}
-        },
-        dataType: 'json',
-        complete: function (response) {
-               window.location.href = '/user'
-        },
-        error: function () {
+           function doDelete(){
+             $.ajax({
+               url: '/organization/organization_delete/', 
+               data: {'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+                      'Organizationid': {{organization.id}}
+               },
+               dataType: 'json',
+               complete: function (response) {
+                 window.location.href = '/user'
+               },
+          error: function () {
         //    $('#status').html('Bummer: there was an error!');
-        },
+          },
 
-});
-return false;
-
-}
-           </script>
+          });
+          return false;
+        }
+          </script>
 
           <script type="text/javascript">
              function doTask(id){

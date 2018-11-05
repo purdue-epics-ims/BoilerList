@@ -347,7 +347,7 @@ def organization_create(request):
             organization.save()
             form.save_m2m()
 
-            message = "Organization {0} created.  You are ready to begin receiving jobs.".format( organization.name )
+            message = "Faculty proposal {0} created.".format( organization.name )
             messages.add_message(request, messages.INFO, message)
             return redirect('user_dash')
 
