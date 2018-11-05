@@ -32,13 +32,13 @@
       </div>
       <div class="panel-body">
         <ul class="list-group">
-          {% for job in Job %}
-          <a class="list-group-item" href="{% url 'job_dash' job.id %}">
-            {{ job.name }}
-          </a>
+          {% for jobs in Job %}
+          <!-- <a class="list-group-item" href="{% url 'job_dash' jobs.id %}"> -->
+            {{ jobs.name }}
+          <!-- </a> -->
           {% endfor %}
-          <br>
-          <a href='/job_creation' class="btn btn-danger"> <i class = "fa fa-plus"></i> Create Job</a>
+          <!-- <br>
+          <a href='/job_creation' class="btn btn-danger"> <i class = "fa fa-plus"></i> Create Job</a> -->
         </ul>
       </div>
     </div>
