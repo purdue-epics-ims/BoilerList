@@ -149,6 +149,7 @@ def organization_dash(request,organization_id):
                    'show_dialog':show_dialog
                   })
 
+
 #get detailed info about a jobrequest
 @login_required
 @user_has_perm('view_jobrequest')
