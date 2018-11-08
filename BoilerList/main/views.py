@@ -67,7 +67,17 @@ def user_dash(request):
     show_dialog = first_visit(user,'user_dash')
 
     if user.userprofile.purdueuser:
-        orgs = [group.organization for group in user.groups.all()]
+  
+        #orgs = [group.organization for group in user.groups.all()]  THIS DOESNT WORK AFTER DISSOLVING A PROPOSAL, WHEN A PROPOSAL IS DELETED, THE GROUP IS NOT DELETED.. 
+        #                                                            WHEN THE GROUP IS NOT DELETED, IT GIVES ORGANIZATION NOT IN GROUP ERROR...
+        #                                                            BELOW CODE IS TO BYPASS THE ERROR, BUT GROUP STILL EXISTS WITHOUT THE PROPOSAL..
+        orgs = []
+        for group in user.groups.all():
+            try:
+                orgs.append(group.organization)
+            except Organization.DoesNotExist:
+                group.delete()
+
         jobs = Job.objects.all()
 
         return render(request,
