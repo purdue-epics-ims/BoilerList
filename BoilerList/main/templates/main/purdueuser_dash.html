@@ -33,8 +33,16 @@
       <div class="panel-body">
         <ul class="list-group">
           {% for jobs in Job %}
+            <div class="well well-sm information-body">
+                <b>Organization name:</b> {{ jobs.name }} <br>
+                <b>Description of job request:</b> {{ jobs.description }} <br>
+                <b>Contact information:</b> {{ jobs.contact_information }} <br>
+                <b>Deliverables:</b> {{ jobs.deliverable }} <br>
+                <b>Student skills:</b> {{ jobs.skill_required }} <br>
+                <b>Required time:</b> {{ jobs.hours_day }} <br>
+                <b>Category that fits project:</b> {{ jobs.categories }} <br>
+            </div>
           <!-- <a class="list-group-item" href="{% url 'job_dash' jobs.id %}"> -->
-            {{ jobs.name }}
           <!-- </a> -->
           {% endfor %}
           <!-- <br>
