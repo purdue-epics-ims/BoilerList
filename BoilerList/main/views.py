@@ -76,7 +76,7 @@ def user_dash(request):
             try:
                 orgs.append(group.organization)
             except Organization.DoesNotExist:
-                group.delete()
+                group.delete()                  #DELETE THE GROUP IF IT HAS NO ORGANIZATION (FACULTY PROPOSAL) IN IT
 
         jobs = Job.objects.all()
 
@@ -497,6 +497,23 @@ def job_status_update(request):
     except Exception as e:
         return JsonResponse(status)
     #return render(request, 'main/job_dash.html', {'form':form,'job' : job})
+
+@login_required
+def organization_status_update(request):
+    status = request.GET['status']
+    organization_id = request.GET['Organizationid']
+    if status == 'Active':
+        flag = True
+    else:
+        flag = False
+    organization = Organization.objects.get(pk=organization_id)
+    try:
+        organization.active = flag
+        organization.save()
+        #write back
+        return HttpResponse(status)
+    except Exception as e:
+        return JsonResponse(status)
 
 # for aprroval of project on admin side when it is made
 @login_required

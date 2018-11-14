@@ -110,16 +110,12 @@
 
           <script type="text/javascript">
              function doTask(id){
-
                  $.ajax({
-                     //url: '/job/status_update/?status=' + id + '&Jobid=' + {job.id},
-                     url: '/job/status_update/',
-                     //url: 'job/status_update/?status=active&Jobid=\d+',
-                     //active = 
+                     url: '/organization/status_update/',
                      data: {
                          'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                          'status': id,
-                         'Jobid': {{job.id}}
+                         'Organizationid': {{organization.id}}
         },
         dataType: 'json',
         complete: function (response) {
