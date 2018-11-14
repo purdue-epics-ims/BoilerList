@@ -78,7 +78,9 @@ def user_dash(request):
             except Organization.DoesNotExist:
                 group.delete()                  #DELETE THE GROUP IF IT HAS NO ORGANIZATION (FACULTY PROPOSAL) IN IT
 
-        jobs = Job.objects.all()
+        jobs = Job.objects.all().filter(active=True)
+        print(type(jobs))
+        print(jobs)
 
         return render(request,
                       'main/purdueuser_dash.html',
