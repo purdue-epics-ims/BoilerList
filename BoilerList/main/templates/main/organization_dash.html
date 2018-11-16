@@ -91,8 +91,10 @@
            <button type="button" class="btn btn-primary" onclick="doDelete()">Dissolve</button>
            <script>
            function doDelete(){
-             $.ajax({
-               url: '/BoilerList/organization/organization_delete/', 
+               var url = "{% url 'organization_delete' %}";
+               $.ajax({
+               url: url,
+               //url: '/BoilerList/organization/organization_delete/', 
                data: {'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                       'Organizationid': {{organization.id}}
                },
@@ -111,8 +113,10 @@
 
           <script type="text/javascript">
              function doTask(id){
+                 var url = "{% url 'organization_status_update' %}";
                  $.ajax({
-                     url: '/BoilerList/organization/status_update/',
+                     url: url,
+                     //url: '/BoilerList/organization/status_update/',
                      data: {
                          'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                          'status': id,

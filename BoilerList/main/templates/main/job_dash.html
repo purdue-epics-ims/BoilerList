@@ -139,9 +139,11 @@
            <button type="button" class="btn btn-primary" onclick="doDelete()">Dissolve</button>
            <script>
                function doDelete(){
-
+               var url = "{% url 'job_delete' %}";
                  $.ajax({
-                     url: '/BoilerList/job/job_delete/', 
+                     url: url,
+                     //url: '/BoilerList/job/job_delete/', 
+                     //url: {% url 'job_delete' %},
                      data: {
                          'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                          'Jobid': {{job.id}}
@@ -162,12 +164,11 @@ return false;
 
           <script type="text/javascript">
              function doTask(id){
-
+                 var url = "{% url 'job_status_update' %}";
                  $.ajax({
-                     //url: '/job/status_update/?status=' + id + '&Jobid=' + {job.id},
-                     url: '/BoilerList/job/status_update/',
-                     //url: 'job/status_update/?status=active&Jobid=\d+',
-                     //active = 
+                     url: url,
+                     //url: '/BoilerList/job/status_update/',
+                     //url: {% url 'job_status_update' %},
                      data: {
                          'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                          'status': id,
