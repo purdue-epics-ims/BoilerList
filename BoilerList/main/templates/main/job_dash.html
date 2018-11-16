@@ -141,7 +141,7 @@
                function doDelete(){
 
                  $.ajax({
-                     url: '/job/job_delete/', 
+                     url: "{% url '/job/job_delete/' %}", 
                      data: {
                          'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                          'Jobid': {{job.id}}
@@ -165,7 +165,7 @@ return false;
 
                  $.ajax({
                      //url: '/job/status_update/?status=' + id + '&Jobid=' + {job.id},
-                     url: '/job/status_update/',
+                     url: "{% url '/job/status_update/' %}",
                      //url: 'job/status_update/?status=active&Jobid=\d+',
                      //active = 
                      data: {
