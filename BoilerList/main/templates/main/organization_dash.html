@@ -92,7 +92,7 @@
            <script>
            function doDelete(){
              $.ajax({
-               url: '/organization/organization_delete/', 
+               url: '/BoilerList/organization/organization_delete/', 
                data: {'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                       'Organizationid': {{organization.id}}
                },
@@ -112,7 +112,7 @@
           <script type="text/javascript">
              function doTask(id){
                  $.ajax({
-                     url: '/organization/status_update/',
+                     url: '/BoilerList/organization/status_update/',
                      data: {
                          'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                          'status': id,
