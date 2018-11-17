@@ -19,12 +19,12 @@
 
     <fieldset>
       <div class="form-group">
-        Service team name
+        Service Team Name
         <div class="input-group">
         <span class="input-group-addon" id="addon1">
             <i class="fa fa-user"></i>
         </span>
-        {% render_field form.name class+="form-control" placeholder="Enter Your Service Team Name" %}
+        {% render_field form.name class+="form-control" placeholder="Enter your service team name" %}
         </div>
       </div>
 
@@ -79,7 +79,7 @@
       </div>
 
       <div class="form-group">
-        Breifly describe how you can help the commnity partner
+        Briefly describe how you can help the community partner
         <div class="input-group">
         <span class="input-group-addon" id="addon1">
             <i class="fa fa-comments"></i>
@@ -89,7 +89,7 @@
       </div>
 
     <div class="form-group">
-       Which level of students would your class include:
+       Indicate which level of students your class would include:
         <form action='url' method='post'> {% csrf_token %}
             <br><input type="checkbox" name="form.freshman" value="Yes">Freshman students
             <br><input type="checkbox" name="form.sophomore" value="Yes">Sophomore students
