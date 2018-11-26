@@ -92,6 +92,7 @@
            <script>
            function doDelete(){
                var url = "{% url 'organization_delete' %}";
+               var user_url = "{% url 'user_dash' %}";
                $.ajax({
                url: url,
                //url: '/BoilerList/organization/organization_delete/', 
@@ -100,7 +101,7 @@
                },
                dataType: 'json',
                complete: function (response) {
-                 window.location.href = '/user'
+                 window.location.href = user_url
                },
           error: function () {
         //    $('#status').html('Bummer: there was an error!');

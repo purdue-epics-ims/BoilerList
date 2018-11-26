@@ -90,13 +90,11 @@
 
     <div class="form-group">
        Indicate which level of students your class would include:
-        <form action='url' method='post'> {% csrf_token %}
-            <br><input type="checkbox" name="form.freshman" value="Yes">Freshman students
-            <br><input type="checkbox" name="form.sophomore" value="Yes">Sophomore students
-            <br><input type="checkbox" name="form.junior" value="Yes">Junior students
-            <br><input type="checkbox" name="form.senior" value="Yes">Senior students
-            <br><input type="checkbox" name="form.grad" value="Yes">Graduate students 
-        </form>
+            <br><input type="checkbox" name="freshman" value="Yes" {% if organization.freshman %}checked{% endif %}>Freshman
+            <br><input type="checkbox" name="sophomore" value="Yes" {% if organization.sophomore %}checked{% endif %}>Sophomore students
+            <br><input type="checkbox" name="junior" value="Yes" {% if organization.junior %}checked{% endif %}>Junior students
+            <br><input type="checkbox" name="senior" value="Yes" {% if organization.senior %}checked{% endif %}>Senior students
+            <br><input type="checkbox" name="grad" value="Yes" {% if organization.grad %}checked{% endif %}>Graduate students 
     </div>
 
       <div class="form-group">
