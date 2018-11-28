@@ -15,7 +15,7 @@ class UserProfile(models.Model):
     # UserProfile - User
     user = models.OneToOneField(User,related_name = 'userprofile',null=True, blank = False)
     # purdueuser or communitypartner
-    purdueuser = models.BooleanField(default=True, choices=((True, 'Purdue Professor'),(False, 'Community Organization')))
+    purdueuser = models.BooleanField(default=True, choices=((True, 'Purdue Faculty / Staff'),(False, 'Community Organization')))
     # save which pages the user has visited before for the purposes of showing helpful dialogs
     visited_views = models.CharField(max_length=64,default="", null=True)
     first = models.CharField('firstname', max_length=128, null=True)
