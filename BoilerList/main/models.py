@@ -16,6 +16,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User,related_name = 'userprofile',null=True, blank = False)
     # purdueuser or communitypartner
     purdueuser = models.BooleanField(default=True, choices=((True, 'Purdue Faculty / Staff'),(False, 'Community Organization')))
+    #Administrator = models.BooleanField(default=False, choices=((True, 'Administrator'),(False, 'Purdue Faculty / Staff'),(False, 'Community Organization')))
     # save which pages the user has visited before for the purposes of showing helpful dialogs
     visited_views = models.CharField(max_length=64,default="", null=True)
     first = models.CharField('firstname', max_length=128, null=True)
@@ -49,12 +50,12 @@ class Organization(models.Model):
     description = models.TextField('Organization Description')
     contactinfo = models.CharField('Contact Information',max_length=64, null=True)
     selectedproposal = models.CharField('Selected Community Proposal',max_length=64, null=True)
-    #faculty/staff name; course title; department (provide example so they write it out fully, 
-    #i.e. Environmental and Ecological Engineering); 
+    #faculty/staff name; course title; department (provide example so they write it out fully,
+    #i.e. Environmental and Ecological Engineering);
     facultystaffname = models.CharField('Faculty / Staff Name', max_length=64, null=True)
     coursetitle = models.CharField('Course Title', max_length=64, null=True)
-    department = models.CharField('Department', max_length=64, null=True)   
-    #level (pull down, check all that apply-freshman, sophomore, junior, senior, grad); 
+    department = models.CharField('Department', max_length=64, null=True)
+    #level (pull down, check all that apply-freshman, sophomore, junior, senior, grad);
     freshman = models.BooleanField(default = False)
     sophomore = models.BooleanField(default = False)
     junior = models.BooleanField(default = False)
@@ -64,7 +65,7 @@ class Organization(models.Model):
     status = models.IntegerField(default = 0, choices = ((0, 'Pending'), (1, 'Approved'), (2, 'Disapproved'), (3, 'Closed')))
     active = models.BooleanField(default = True)
     approve = models.BooleanField(default = True) # add to admin side, already showing on community agency side, not yet on faculty side
- 
+
 
     categories = models.ManyToManyField(Category, related_name = 'organizations')  # Category =-= Organization
     group = models.OneToOneField(Group) # Organization - Group
@@ -151,7 +152,7 @@ class Job(models.Model):
     status = models.IntegerField(default = 0, choices = ((0, 'Pending'), (1, 'Approved'), (2, 'Disapproved'), (3, 'Closed')))
     active = models.BooleanField(default = True)
     approve = models.BooleanField(default = True) # add to admin side, already showing on community agency side
-    #checkboxes 
+    #checkboxes
     activism = models.BooleanField(default = False)
     arts = models.BooleanField(default = False)
     civil = models.BooleanField(default = False)
@@ -239,7 +240,7 @@ class JobRequest(models.Model):
     job = models.ForeignKey(Job,related_name = 'jobrequests') # Job -= JobRequest
     organization = models.ForeignKey(Organization)
     applied = models.NullBooleanField(default = False)
-    accepted = models.NullBooleanField(default = False)	
+    accepted = models.NullBooleanField(default = False)
     declined = models.NullBooleanField(default = False)
     confirmed = models.NullBooleanField(default = False)
     completed = models.NullBooleanField(default = False)

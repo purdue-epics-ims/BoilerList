@@ -11,12 +11,16 @@ def user_has_perm(perm):
             success = False
 
             user = request.user
+            print(perm)
+            print(user)
+            print(user.user_permissions)
 
             #check if user has perm for Organization
 
             # if 'organization_id' in kwargs.keys():
             if perm in [p.codename for p in get_perms_for_model(Organization)]:
                 organization = Organization.objects.get(id=kwargs['organization_id'])
+                print(organization)
                 if user.has_perm(perm,organization):
                     success = True
                 else:
@@ -74,16 +78,25 @@ def user_is_type(user_type):
                 messages.add_message(request, messages.ERROR, message.format(5))
                 return render(request,'main/confirm.html')
             is_purdueuser = request.user.userprofile.purdueuser
+
+            if request.user.username == 'Administrator':
+                return func(request,*args,**kwargs)
+            else:
+                messages.add_message(request, messages.ERROR, message.format(8))
+                return render(request,'main/confirm.html')
             if user_type == 'purdueuser':
                 if is_purdueuser:
                     return func(request,*args,**kwargs)
                 else:
+                    print(user_type)
+                    print("---------------=========666666")
                     messages.add_message(request, messages.ERROR, message.format(6))
                     return render(request,'main/confirm.html')
             elif user_type == 'communitypartner':
                 if not is_purdueuser:
                     return func(request,*args,**kwargs)
                 else:
+
                     messages.add_message(request, messages.ERROR, message.format(7))
                     return render(request,'main/confirm.html')
             else:
