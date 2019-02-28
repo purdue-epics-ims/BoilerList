@@ -20,6 +20,7 @@ from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 
+
 def quicksearch(request):
     orgs = Organization.objects.all()
     return render(request,'main/quicksearch.html',
@@ -66,9 +67,39 @@ def user_dash(request):
     #If this is the first time the user has visited this page, show a dialog
     show_dialog = first_visit(user,'user_dash')
 
-    if user.userprofile.purdueuser:
-  
-        #orgs = [group.organization for group in user.groups.all()]  THIS DOESNT WORK AFTER DISSOLVING A PROPOSAL, WHEN A PROPOSAL IS DELETED, THE GROUP IS NOT DELETED.. 
+
+    if user.username == "Administrator":
+        orgs = []
+        print(len(Group.objects.all()))
+        for group in Group.objects.all():
+            print("----------------")
+            print(group)
+            try:
+                orgs.append(group.organization)
+            except Organization.DoesNotExist:
+                print("deleted")
+                group.delete()                  #DELETE THE GROUP IF IT HAS NO ORGANIZATION (FACULTY PROPOSAL) IN IT
+
+        jobs = Job.objects.all().filter(active=True)
+        #print(type(jobs))
+        #print(jobs)
+        print("========================")
+        print(len(orgs))
+        for i in orgs:
+            print(i.name)
+
+        return render(request,
+                      'main/administrator_dash.html',
+                      {'user_dash': user,
+                       'organizations':orgs,
+                       'Job': jobs,
+                       'unread_notifications':unread_notifications,
+                       'read_notifications':read_notifications,
+                       'show_dialog':show_dialog
+                       })
+    elif user.userprofile.purdueuser:
+
+        #orgs = [group.organization for group in user.groups.all()]  THIS DOESNT WORK AFTER DISSOLVING A PROPOSAL, WHEN A PROPOSAL IS DELETED, THE GROUP IS NOT DELETED..
         #                                                            WHEN THE GROUP IS NOT DELETED, IT GIVES ORGANIZATION NOT IN GROUP ERROR...
         #                                                            BELOW CODE IS TO BYPASS THE ERROR, BUT GROUP STILL EXISTS WITHOUT THE PROPOSAL..
         orgs = []
@@ -80,8 +111,11 @@ def user_dash(request):
 
         jobs = Job.objects.all().filter(active=True)
         #print(type(jobs))
-        #print(jobs)
 
+        print("========================")
+        print(len(orgs))
+        for i in orgs:
+            print(i.name)
         return render(request,
                       'main/purdueuser_dash.html',
                       {'user_dash': user,

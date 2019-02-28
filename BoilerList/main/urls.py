@@ -2,6 +2,7 @@ from django.conf.urls import url
 from django.contrib.auth.views import logout
 from main import views
 
+
 urlpatterns = [
     #user urls
     url(r'^user/?$', views.user_dash,name='user_dash'),
@@ -21,7 +22,7 @@ urlpatterns = [
     url(r'^job_creation$', views.job_creation,name='job_creation'),
     url(r'^job/(?P<job_id>[0-9]+)/edit/?$', views.job_settings,name='job_settings'),
     url(r'^job/status_update/$', views.job_status_update,name='job_status_update'),
-    url(r'^job/approve_update/$', views.job_approve_update), #when admin is made properly add this to javascript ajax 
+    url(r'^job/approve_update/$', views.job_approve_update), #when admin is made properly add this to javascript ajax
     url(r'^job/job_delete/$', views.delete_job,name='job_delete'),
     #misc urls
     url(r'^$',views.front_page,name='front_page'),
@@ -30,5 +31,7 @@ urlpatterns = [
     url(r'^logout/?$', logout,{'template_name':'main/logout.html'},name='logout'),
     url(r'^about/?$', views.about, name='about'),
     url(r'^quicksearch/?$', views.quicksearch,name='quicksearch'),
-]
+    #administrator urls
+    #url(r'^administrator/$',views.administrator,name='administrator'),
 
+]
