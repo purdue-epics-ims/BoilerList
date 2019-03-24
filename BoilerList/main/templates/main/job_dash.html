@@ -136,7 +136,16 @@
             <span style="padding-left:140px;"></span>
            <button type="button" id ="Active" class="btn btn-primary" onClick="doTask(this.id)">Activate</button>
            <button type="button" id ="Deactive" class="btn btn-primary" onClick="doTask(this.id)">Deactivate</button>
-           <button type="button" class="btn btn-primary" onclick="doDelete()">Dissolve</button>
+           <button type="button" id ="Dissolve" class="btn btn-primary" onclick="confirm()">Dissolve</button>
+           <script>
+               function confirm(){
+                    var answer = prompt("Key in \"yes\" to confirm dissolve the proposal.")
+                    if(answer === "yes"){
+                        doDelete()
+                    }
+               }
+           </script>
+
            <script>
                function doDelete(){
                var url = "{% url 'job_delete' %}";

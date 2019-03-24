@@ -10,3 +10,9 @@ function getQueryVariable(variable) {
        }
        return(false);
 }
+
+
+
+$("#Dissolve").on("click",function(){
+	alert("lololol")
+})

@@ -24,7 +24,7 @@
 
 </div>
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-sm-6">
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -108,17 +108,52 @@
                         <br>{{jobs.other}}
                     {% endif %}
             </div>
-          <!-- <a class="list-group-item" href="{% url 'job_dash' jobs.id %}"> -->
-          <!-- </a> -->
+
           {% endfor %}
-          <!-- <br>
-          <a href='/job_creation' class="btn btn-danger"> <i class = "fa fa-plus"></i> Create Job</a> -->
+
         </ul>
       </div>
     </div>
   </div>
+ -->
+
 
   <div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          Existing Community Job Proposals
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+              <div class="panel-heading">
+                  Active Proposals
+              </div>
+            {% for job in Job %}
+              {% if job.active %}
+                  <a class="list-group-item" href="{% url 'job_dash' job.id %}">
+                      <b>{{ job.name }}</b>
+                  </a>
+              {% endif %}
+            {% endfor %}
+              <br>
+              <div class="panel-heading">
+                  Inactive Proposals
+              </div>
+            {% for job in Job %}
+              {% if job.active %}
+              
+              {% else %}
+                  <a class="list-group-item" href="{% url 'job_dash' job.id %}">
+                      <b>{{ job.name }}</b>
+                  </a>
+              {% endif %}            
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  
     <div class="col-sm-6">
       <div class="panel panel-primary">
         <div class="panel-heading">
@@ -151,37 +186,6 @@
         </div>
       </div>
     </div>
-
-  <!--<div class="col-sm-6">
-    {% for org in organizations %}
-    <div class="panel panel-primary">
-
-      <div class="panel-heading panel-title">
-          Your Faculty Proposal: <a href="{% url 'organization_detail' org.id %}">{{ org.name }}</a>
-          <a href="{% url 'organization_settings' org.id %}"><i class="fa fa-cog pull-right"></i></a>   ----- this is the button to the setting
-      </div>
-      <div class="panel-body">
-        <ul class="list-group dash-list">
-        {% for jr in org.jobrequest_set.all %}
-        <a class="list-group-item" href="{% url 'jobrequest_dash' org.id jr.job.id %}">
-          {% if jr.accepted %}
-          <span class="label label-lg label-success">Accepted</span>
-          {% elif jr.declined %}
-          <span class="label label-lg label-danger">Declined</span>
-          {% elif jr.applied %}
-          <span class="label label-lg label-success">Applied</span>
-          {% else %}
-          <span class="label label-lg label-warning">Pending</span>
-          {% endif %}
-          {{ jr.job.name }} by {{ jr.job.client_organization }}
-        </a>
-        {% endfor %}
-        </ul>
-      </div>
-    </div>
-    {% endfor %}
-  </div>-->
-
-</div>
+  </div>
 
 {% endblock content %}

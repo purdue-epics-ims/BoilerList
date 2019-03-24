@@ -72,21 +72,13 @@ def user_dash(request):
         orgs = []
         print(len(Group.objects.all()))
         for group in Group.objects.all():
-            print("----------------")
-            print(group)
             try:
                 orgs.append(group.organization)
             except Organization.DoesNotExist:
                 print("deleted")
                 group.delete()                  #DELETE THE GROUP IF IT HAS NO ORGANIZATION (FACULTY PROPOSAL) IN IT
 
-        jobs = Job.objects.all().filter(active=True)
-        #print(type(jobs))
-        #print(jobs)
-        print("========================")
-        print(len(orgs))
-        for i in orgs:
-            print(i.name)
+        jobs = Job.objects.all()
 
         return render(request,
                       'main/administrator_dash.html',
@@ -112,10 +104,6 @@ def user_dash(request):
         jobs = Job.objects.all().filter(active=True)
         #print(type(jobs))
 
-        print("========================")
-        print(len(orgs))
-        for i in orgs:
-            print(i.name)
         return render(request,
                       'main/purdueuser_dash.html',
                       {'user_dash': user,
@@ -129,7 +117,7 @@ def user_dash(request):
         jobs = user.jobs.all()
         return render(request, 'main/communitypartner_dash.html',
                      {'user_dash': user,
-                       'jobs':jobs,
+                       'Job':jobs,
                        'unread_notifications':unread_notifications,
                        'read_notifications':read_notifications,
                        'show_dialog':show_dialog
@@ -158,6 +146,7 @@ def job_dash(request,job_id):
             messages.add_message(request, messages.ERROR, message)
 
     job = Job.objects.get(id=job_id)
+
     applied_jobrequests = job.jobrequests.order_by('organization').filter(applied = True)
 
     return render(request, 'main/job_dash.html',

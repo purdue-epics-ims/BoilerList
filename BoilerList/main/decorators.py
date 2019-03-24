@@ -81,9 +81,9 @@ def user_is_type(user_type):
 
             if request.user.username == 'Administrator':
                 return func(request,*args,**kwargs)
-            else:
-                messages.add_message(request, messages.ERROR, message.format(8))
-                return render(request,'main/confirm.html')
+            #else:
+            #   messages.add_message(request, messages.ERROR, message.format(8))
+            #  return render(request,'main/confirm.html')
             if user_type == 'purdueuser':
                 if is_purdueuser:
                     return func(request,*args,**kwargs)

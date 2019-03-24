@@ -30,17 +30,34 @@
       <div class="panel-heading">
         Your Jobs
       </div>
-      <div class="panel-body">
-        <ul class="list-group">
-          {% for job in jobs %}
-          <a class="list-group-item" href="{% url 'job_dash' job.id %}">
-            {{ job.name }}
-          </a>
-          {% endfor %}
-          <br>
-          <a href = "{% url 'job_creation' %}" class="btn btn-danger"> <i class="fa fa-plus"></i> Create Job</a>
-        </ul>
-      </div>
+        <div class="panel-body">
+          <ul class="list-group">
+              <div class="panel-heading">
+                  Active Proposals
+              </div>
+            {% for job in Job %}
+              {% if job.active %}
+                  <a class="list-group-item" href="{% url 'job_dash' job.id %}">
+                      <b>{{ job.name }}</b>
+                  </a>
+              {% endif %}
+            {% endfor %}
+              <br>
+              <div class="panel-heading">
+                  Inactive Proposals
+              </div>
+            {% for job in Job %}
+              {% if job.active %}
+              
+              {% else %}
+                  <a class="list-group-item" href="{% url 'job_dash' job.id %}">
+                      <b>{{ job.name }}</b>
+                  </a>
+              {% endif %}            
+            {% endfor %}
+          </ul>
+                    <a href = "{% url 'job_creation' %}" class="btn btn-danger"> <i class="fa fa-plus"></i> Create Job</a>
+        </div>
 
     </div>
   </div>

@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth.views import logout
 from main import views
-from .pdf import GeneratePdf
+
 
 urlpatterns = [
     #user urls
