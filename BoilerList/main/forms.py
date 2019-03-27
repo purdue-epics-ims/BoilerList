@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ModelForm, CheckboxSelectMultiple
+from django import forms as djangoforms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import*
@@ -33,12 +34,24 @@ class OrgForm(ModelForm):
         #send_mail('Boilerlist - New Job Request Submitted', msg, 'boilerconnect1@gmail.com', ['paynel@purdue.edu'], fail_silently = False,)
         return org
 
+
+def get_my_choices():
+
+    choices = Job.objects.all().filter(active=True)
+    print(choices)
+    return choices
+
 #class OrganizationCreateForm(OrgForm):
 class OrganizationCreateForm(ModelForm):
     class Meta:
         model = Organization
+        #selectedproposal = forms.
         fields = ['name', 'url', 'description', 'contactinfo', 'selectedproposal', 'facultystaffname', 'coursetitle', 'department', 'freshman', 'sophomore', 'junior', 'senior', 'grad']
         #widgets = {'freshman': CategorySelect()}
+    def __init__(self, *args, **kwargs):
+        super(OrganizationCreateForm, self).__init__(*args, **kwargs)
+        self.fields['selectedproposal'] = djangoforms.ModelChoiceField(queryset=Job.objects.all().filter(active=True),required=True)
+
 
 #class OrganizationEditForm(OrgForm):
 class OrganizationEditForm(ModelForm):

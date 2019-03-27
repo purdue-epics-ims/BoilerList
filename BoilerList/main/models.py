@@ -44,12 +44,14 @@ class Category(models.Model):
 class Organization(models.Model):
     def __unicode__(self):
         return self.name
-
+        
     name = models.CharField('Organization Name',max_length=64)
     #narrative, including learning outcomes and general course description
     description = models.TextField('Organization Description')
     contactinfo = models.CharField('Contact Information',max_length=64, null=True)
-    selectedproposal = models.CharField('Selected Community Proposal',max_length=64, null=True)
+
+    #selectedproposal = models.CharField('Selected Community Proposal',max_length=64, null=True)
+    selectedproposal = models.CharField('Select a proposal',max_length=64)
     #faculty/staff name; course title; department (provide example so they write it out fully,
     #i.e. Environmental and Ecological Engineering);
     facultystaffname = models.CharField('Faculty / Staff Name', max_length=64, null=True)

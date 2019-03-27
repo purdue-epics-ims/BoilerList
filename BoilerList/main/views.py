@@ -366,14 +366,18 @@ def user_create(request, profile):
 def organization_create(request):
     #If this is the first time the user has visited this page, show a dialog
     show_dialog = first_visit(request.user,'organization_create')
-
+    jobs = Job.objects.all().filter(active=True)
     #if the request was a GET
     if request.method == 'GET':
         form = OrganizationCreateForm()
+        
+
     #if this request was a POST
     elif request.method == 'POST':
         form = OrganizationCreateForm(request.POST, request.FILES)
-
+        print("----------")
+        #print(form.)
+        print("----------")
         #check form validity
         if form.is_valid() :
             #create new Group + Organization
@@ -388,7 +392,9 @@ def organization_create(request):
             messages.add_message(request, messages.INFO, message)
             return redirect('user_dash')
 
-    return render(request, 'main/organization_create.html', {'form':form,'show_dialog':show_dialog})
+    return render(request, 'main/organization_create.html', 
+                            {'form':form,
+                             'show_dialog':show_dialog})
 
 @login_required
 def user_settings(request):

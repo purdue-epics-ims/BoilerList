@@ -19,12 +19,12 @@
 
     <fieldset>
       <div class="form-group">
-        Service Team Name
+        Course Name
         <div class="input-group">
         <span class="input-group-addon" id="addon1">
             <i class="fa fa-user"></i>
         </span>
-        {% render_field form.name class+="form-control" placeholder="Enter your service team name" %}
+        {% render_field form.name class+="form-control" placeholder="eg. Introduction to differential and integral calculus of one variable, with applications" %}
         </div>
       </div>
 
@@ -34,7 +34,7 @@
         <span class="input-group-addon" id="addon1">
             <i class="fa fa-columns"></i>
         </span>
-        {% render_field form.coursetitle class+="form-control" placeholder="eg. EPICS 101" %}
+        {% render_field form.coursetitle class+="form-control" placeholder="eg. MA 16100" %}
         </div>
       </div>
 
@@ -74,7 +74,7 @@
         <span class="input-group-addon" id="addon1">
             <i class="fa fa-phone"></i>
         </span>
-        {% render_field form.contactinfo class+="form-control" placeholder="eg. emails, phone number" %}
+        {% render_field form.contactinfo class+="form-control" placeholder="email" %}
         </div>
       </div>
 
@@ -104,6 +104,7 @@
             <i class="fa fa-at"></i>
         </span>
         {% render_field form.selectedproposal class+="form-control" placeholder="Please identify which community proposal this is responding to" %}
+
         </div>
       </div>
 
