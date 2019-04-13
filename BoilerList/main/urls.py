@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^organization/create/?$', views.organization_create,name='organization_create'),
     url(r'^organization/(?P<organization_id>[0-9]+)/edit/?$', views.organization_settings,name='organization_settings'),
     url(r'^organization/status_update/$', views.organization_status_update,name='organization_status_update'),
+    url(r'^organization/approve_update/$', views.organization_approve_update,name='organization_approve_update'),
     url(r'^organization/organization_delete/$', views.delete_organization,name='organization_delete'),
     #job urls
     url(r'^job/(?P<job_id>[0-9]+)/dash/?$', views.job_dash,name='job_dash'),
@@ -22,7 +23,7 @@ urlpatterns = [
     url(r'^job_creation$', views.job_creation,name='job_creation'),
     url(r'^job/(?P<job_id>[0-9]+)/edit/?$', views.job_settings,name='job_settings'),
     url(r'^job/status_update/$', views.job_status_update,name='job_status_update'),
-    url(r'^job/approve_update/$', views.job_approve_update), #when admin is made properly add this to javascript ajax
+    url(r'^job/approve_update/$', views.community_job_approve_update, name="community_job_approve_update"), #when admin is made properly add this to javascript ajax
     url(r'^job/job_delete/$', views.delete_job,name='job_delete'),
     #misc urls
     url(r'^$',views.front_page,name='front_page'),

@@ -1,0 +1,191 @@
+{% extends "main/base.html" %}
+{% load template_tags %}
+
+{% block content %}
+{% if show_dialog %}
+<div class="confirm alert alert-dismissible alert-info">
+    <i type="button" class="close fa fa-close" data-dismiss="alert"></i>
+    <h4> This page shows all faculty proposals that you have created as well as any active community job proposals.  You need to create a proposal before you can see them in the box on the right.  Click the red 'Create a Faculty Proposal' button below to create an faculty proposal.</h4>
+</div>
+{% endif %}
+
+<div class="jumbotron">
+
+  <center>
+    <h3>{{ request.user }} <small>Dashboard</small></h3>
+  </center>
+
+</div>
+
+<div class="form-group">
+
+    <a href="{% url 'user_settings' %}"><button class="btn btn-info"> <i class="fa fa-cog"></i> User Settings</button></a>
+    <!--<a href = "{% url 'organization_create' %}" class="btn btn-danger"> <i class="fa fa-plus"></i> Create a Faculty Proposal</a>-->
+
+</div>
+
+<!-- <div class="row">
+  <div class="col-sm-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Existing Community Job Proposals
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          {% for jobs in Job %}
+            <div class="well well-sm information-body">
+                <b>Organization name:</b> {{ jobs.name }} <br>
+                <b>Description of job request:</b> {{ jobs.description }} <br>
+                <b>Contact information:</b> {{ jobs.contact_information }} <br>
+                <b>Deliverables:</b> {{ jobs.deliverable }} <br>
+                <b>Student skills:</b> {{ jobs.skill_required }} <br>
+                <b>Required time:</b> {{ jobs.hours_day }} <br>
+                <b>Categories that project belongs to:</b>
+                    {% if jobs.activism %}
+                        <br>Activism & advocacy
+                    {% endif %}
+                    {% if jobs.arts %}
+                        <br>Arts & culture
+                    {% endif %}
+                    {% if jobs.civil %}
+                        <br>Civil rights & human rights
+                    {% endif %}
+                    {% if jobs.school %}
+                        <br>School readiness in Pre-K to 12 education
+                    {% endif %}
+                    {% if jobs.crisis %}
+                        <br>Crisis & conflict resolution
+                    {% endif %}
+                    {% if jobs.criminal %}
+                        <br>Criminal justice & legal representation
+                    {% endif %}
+                    {% if jobs.disaster %}
+                        <br>Disaster preparedness
+                    {% endif %}
+                    {% if jobs.economic %}
+                        <br>Economic development
+                    {% endif %}
+                    {% if jobs.entrepreneurship %}
+                        <br>Entrepreneurship
+                    {% endif %}
+                    {% if jobs.environment %}
+                        <br>Environment & sustainability
+                    {% endif %}
+                    {% if jobs.food %}
+                        <br>Food security
+                    {% endif %}
+                    {% if jobs.housing %}
+                        <br>Housing & homelessness
+                    {% endif %}
+                    {% if jobs.immigrants %}
+                        <br>Immigrants & migrant worker rights
+                    {% endif %}
+                    {% if jobs.individual %}
+                        <br>Individual & community health
+                    {% endif %}
+                    {% if jobs.mental %}
+                        <br>Mental health
+                    {% endif %}
+                    {% if jobs.poverty %}
+                        <br>Poverty alleviation
+                    {% endif %}
+                    {% if jobs.substance %}
+                        <br>Substance abuse & recovery
+                    {% endif %}
+                    {% if jobs.STEM %}
+                        <br>STEM education
+                    {% endif %}
+                    {% if jobs.transportation %}
+                        <br>Transportation
+                    {% endif %}
+                    {% if jobs.veterans %}
+                        <br>Veterans
+                    {% endif %}
+                    {% if jobs.voting %}
+                        <br>Voting
+                    {% endif %}
+                    {% if jobs.other %}
+                        <br>{{jobs.other}}
+                    {% endif %}
+            </div>
+
+          {% endfor %}
+
+        </ul>
+      </div>
+    </div>
+  </div>
+ -->
+
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          Existing Community Job Proposals
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+              <div class="panel-heading">
+                  Active Proposals
+              </div>
+            {% for job in Job %}
+              {% if job.active %}
+                  <a class="list-group-item" href="{% url 'job_dash' job.id %}">
+                      <b>{{ job.name }}</b>
+                  </a>
+              {% endif %}
+            {% endfor %}
+              <br>
+              <div class="panel-heading">
+                  Inactive Proposals
+              </div>
+            {% for job in Job %}
+              {% if job.active %}
+              
+              {% else %}
+                  <a class="list-group-item" href="{% url 'job_dash' job.id %}">
+                      <b>{{ job.name }}</b>
+                  </a>
+              {% endif %}            
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-sm-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          Existing faculty Proposals
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+              <div class="panel-heading">
+                  Active Proposals
+              </div>
+            {% for org in organizations %}
+              {% if org.active %}
+                  <a class="list-group-item" href="{% url 'organization_dash' org.id %}">
+                      <b>{{ org.name }}</b>
+                  </a>
+              {% endif %}
+            {% endfor %}
+              <br>
+              <div class="panel-heading">
+                  Inactive Proposals
+              </div>
+            {% for org in organizations %}
+              {% if not org.active %}
+                  <a class="list-group-item" href="{% url 'organization_dash' org.id %}">
+                      <b>{{ org.name }}</b>
+                  </a>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

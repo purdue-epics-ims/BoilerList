@@ -4,188 +4,251 @@
 {% block content %}
 {% if show_dialog %}
 <div class="confirm alert alert-dismissible alert-info">
-    <i type="button" class="close fa fa-close" data-dismiss="alert"></i>
-    <h4> This page shows all faculty proposals that you have created as well as any active community job proposals.  You need to create a proposal before you can see them in the box on the right.  Click the red 'Create a Faculty Proposal' button below to create an faculty proposal.</h4>
+  <i type="button" class="close fa fa-close" data-dismiss="alert"></i>
+  <h4> This page shows all faculty proposals that you have created as well as any active community job proposals.  You need to create a proposal before you can see them in the box on the right.  Click the red 'Create a Faculty Proposal' button below to create an faculty proposal.</h4>
 </div>
 {% endif %}
 
 <div class="jumbotron">
 
   <center>
-    <h3>{{ request.user }} <small>Dashboard</small></h3>
+  <h3>{{ request.user }} <small>Dashboard</small></h3>
   </center>
 
 </div>
 
 <div class="form-group">
 
-    <a href="{% url 'user_settings' %}"><button class="btn btn-info"> <i class="fa fa-cog"></i> User Settings</button></a>
-    <!--<a href = "{% url 'organization_create' %}" class="btn btn-danger"> <i class="fa fa-plus"></i> Create a Faculty Proposal</a>-->
+  <a href="{% url 'user_settings' %}"><button class="btn btn-info"> <i class="fa fa-cog"></i> User Settings</button></a>
+  <!--<a href = "{% url 'organization_create' %}" class="btn btn-danger"> <i class="fa fa-plus"></i> Create a Faculty Proposal</a>-->
 
 </div>
 
-<!-- <div class="row">
+<div class="row">
+  <div class="col-sm-6">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      Existing Community Job Proposals
+    </div>
+    <div class="panel-body">
+      <ul class="list-group">
+        {% for community_job in Job %}
+          {% if community_job.active %}
+          <div class="well well-sm information-body">
+              <b>Organization name:</b> {{ community_job.name }} <br>
+              <b>Description of job request:</b> {{ community_job.description }} <br>
+              <b>Contact information:</b> {{ community_job.contact_information }} <br>
+              <b>Deliverables:</b> {{ community_job.deliverable }} <br>
+              <b>Student skills:</b> {{ community_job.skill_required }} <br>
+              <b>Required time:</b> {{ community_job.hours_day }} <br>
+              <b>Categories that project belongs to:</b>
+                  {% if community_job.activism %}
+                      Activism & advocacy<br>
+                  {% endif %}
+                  {% if community_job.arts %}
+                      Arts & culture<br>
+                  {% endif %}
+                  {% if community_job.civil %}
+                      Civil rights & human rights<br>
+                  {% endif %}
+                  {% if community_job.school %}
+                      School readiness in Pre-K to 12 education<br>
+                  {% endif %}
+                  {% if community_job.crisis %}
+                      Crisis & conflict resolution<br>
+                  {% endif %}
+                  {% if community_job.criminal %}
+                      Criminal justice & legal representation<br>
+                  {% endif %}
+                  {% if community_job.disaster %}
+                      Disaster preparedness<br>
+                  {% endif %}
+                  {% if community_job.economic %}
+                      Economic development<br>
+                  {% endif %}
+                  {% if community_job.entrepreneurship %}
+                      Entrepreneurship<br>
+                  {% endif %}
+                  {% if community_job.environment %}
+                      Environment & sustainability<br>
+                  {% endif %}
+                  {% if community_job.food %}
+                      Food security<br>
+                  {% endif %}
+                  {% if community_job.housing %}
+                      Housing & homelessness<br>
+                  {% endif %}
+                  {% if community_job.immigrants %}
+                      Immigrants & migrant worker rights<br>
+                  {% endif %}
+                  {% if community_job.individual %}
+                      Individual & community health<br>
+                  {% endif %}
+                  {% if community_job.mental %}
+                      Mental health<br>
+                  {% endif %}
+                  {% if community_job.poverty %}
+                      Poverty alleviation<br>
+                  {% endif %}
+                  {% if community_job.substance %}
+                      Substance abuse & recovery<br>
+                  {% endif %}
+                  {% if community_job.STEM %}
+                      STEM education<br>
+                  {% endif %}
+                  {% if community_job.transportation %}
+                      Transportation<br>
+                  {% endif %}
+                  {% if community_job.veterans %}
+                      Veterans<br>
+                  {% endif %}
+                  {% if community_job.voting %}
+                      Voting<br>
+                  {% endif %}
+                  {% if community_job.other %}
+                      {{community_job.other}}<br>
+                  {% endif %}
+
+                   <br>
+              {% if community_job.approve %}
+              <button type="button" id ="Approve_job{{community_job.name}}" name="{{community_job.name}}" value= "{{community_job.id}}" class="btn btn-primary" disabled>Approved</button>
+              {% else %}
+              <button type="button" id ="Approve_job{{community_job.name}}" name="{{community_job.name}}" value= "{{community_job.id}}" class="btn btn-primary" onClick="decide_job_approve(this.id, this.name, this.value)">Approve</button>
+              {% endif %}
+
+              {% if community_job.deny %}
+              <button type="button" id ="Deny_job{{community_job.name}}" name="{{community_job.name}}" value= "{{community_job.id}}" class="btn btn-primary" disabled>Denied</button>
+              {% else %}
+              <button type="button" id ="Deny_job{{community_job.name}}" name="{{community_job.name}}" value= "{{community_job.id}}" class="btn btn-primary" onClick="decide_job_approve(this.id, this.name, this.value)">Deny</button>
+              {% endif %}
+ <!--          {% if community_job.approve %}
+              <button type="button" id ="Approved" class="btn btn-primary" >Approved</button>
+              {% else %}
+              <button type="button" id ="NotApproved" class="btn btn-primary" >Not Approved</button>
+              {% endif %} -->
+              <script type="text/javascript">
+              function decide_job_approve(id, job_name, community_job_id){
+                  var url = "{% url 'community_job_approve_update' %}";
+                  $.ajax({
+                      url: url,
+                      data: {
+                         'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+                         'status': id,
+                         'community_job_id': community_job_id,
+                      },
+                      dataType: 'json',
+                      complete: function (response) {
+                        if(id=="Approve_job"+job_name){
+
+                          alert("Approved this proposal");
+                          $("#Approve_job{{job_name}}").context.activeElement.disabled = true;
+                          $('#Deny_job{{job_name}}').context.activeElement.disabled = false;
+                          location.reload()
+                          // $('#Deny_job{{job_name}}').context.activeElement.innerText = "Deny";
+                          // $("this").context.activeElement.innerText = "Approved"
+                        }else{
+
+                          alert("Denied this proposal");
+                          $('#Approve_job{{job_name}}').context.activeElement.disabled = false;
+                          $('#Deny_job{{job_name}}').context.activeElement.disabled = true;
+                          location.reload()
+                          // $('#Deny_job{{job_name}}').context.activeElement.innerText = "Denied";
+                          // $("#Approve_job{{job_name}}").context.activeElement.innerText = "Approve"
+                        }
+                      },
+                      error: function () {
+                        $('#status').html('Bummer: there was an error!');
+                      },
+
+                  });
+                return false;
+
+            }
+            </script>
+          </div>
+          {% endif %}
+        {% endfor %}
+
+      </ul>
+    </div>
+  </div>
+  </div>
+ 
+ 
   <div class="col-sm-6">
     <div class="panel panel-primary">
       <div class="panel-heading">
-        Existing Community Job Proposals
+        Existing Faculty Proposals
       </div>
       <div class="panel-body">
         <ul class="list-group">
-          {% for jobs in Job %}
-            <div class="well well-sm information-body">
-                <b>Organization name:</b> {{ jobs.name }} <br>
-                <b>Description of job request:</b> {{ jobs.description }} <br>
-                <b>Contact information:</b> {{ jobs.contact_information }} <br>
-                <b>Deliverables:</b> {{ jobs.deliverable }} <br>
-                <b>Student skills:</b> {{ jobs.skill_required }} <br>
-                <b>Required time:</b> {{ jobs.hours_day }} <br>
-                <b>Categories that project belongs to:</b>
-                    {% if jobs.activism %}
-                        <br>Activism & advocacy
-                    {% endif %}
-                    {% if jobs.arts %}
-                        <br>Arts & culture
-                    {% endif %}
-                    {% if jobs.civil %}
-                        <br>Civil rights & human rights
-                    {% endif %}
-                    {% if jobs.school %}
-                        <br>School readiness in Pre-K to 12 education
-                    {% endif %}
-                    {% if jobs.crisis %}
-                        <br>Crisis & conflict resolution
-                    {% endif %}
-                    {% if jobs.criminal %}
-                        <br>Criminal justice & legal representation
-                    {% endif %}
-                    {% if jobs.disaster %}
-                        <br>Disaster preparedness
-                    {% endif %}
-                    {% if jobs.economic %}
-                        <br>Economic development
-                    {% endif %}
-                    {% if jobs.entrepreneurship %}
-                        <br>Entrepreneurship
-                    {% endif %}
-                    {% if jobs.environment %}
-                        <br>Environment & sustainability
-                    {% endif %}
-                    {% if jobs.food %}
-                        <br>Food security
-                    {% endif %}
-                    {% if jobs.housing %}
-                        <br>Housing & homelessness
-                    {% endif %}
-                    {% if jobs.immigrants %}
-                        <br>Immigrants & migrant worker rights
-                    {% endif %}
-                    {% if jobs.individual %}
-                        <br>Individual & community health
-                    {% endif %}
-                    {% if jobs.mental %}
-                        <br>Mental health
-                    {% endif %}
-                    {% if jobs.poverty %}
-                        <br>Poverty alleviation
-                    {% endif %}
-                    {% if jobs.substance %}
-                        <br>Substance abuse & recovery
-                    {% endif %}
-                    {% if jobs.STEM %}
-                        <br>STEM education
-                    {% endif %}
-                    {% if jobs.transportation %}
-                        <br>Transportation
-                    {% endif %}
-                    {% if jobs.veterans %}
-                        <br>Veterans
-                    {% endif %}
-                    {% if jobs.voting %}
-                        <br>Voting
-                    {% endif %}
-                    {% if jobs.other %}
-                        <br>{{jobs.other}}
-                    {% endif %}
-            </div>
+        {% for org in organizations %}
+          {% if org.active %}
+          <div class="well well-sm information-body">
+              <b>Course Name:</b> {{ org.name }} <br>
+              <b>Course Title:</b> {{ org.coursetitle }} <br>
+              <b>Faculty/Staff Name:</b> {{ org.facultystaffname }} <br>
+              <b>Website:</b> {{ org.url }} <br>
+              <b>Department:</b> {{ org.department }} <br>
+              <b>Contact Informations:</b> {{ org.phone_number }} <br> <!--Needs change-->
+              <b>Description:</b>  {{ org.description }} <br>
+              <b>Student Levels:</b>  {{ org.description }} <br> <!--Needs change-->
+              <b>Proposal Selected:</b>  {{ org.selectedproposal }} <br>
+              <br>
+              <button type="button" id ="Approve" class="btn btn-primary" onClick="doApprove(this.id)">Approve</button>
+              <button type="button" id ="Deny" class="btn btn-primary" onClick="doApprove(this.id)">Deny</button>
 
-          {% endfor %}
+              <script type="text/javascript">
+              function doApprove(id){
+                  var url = "{% url 'organization_approve_update' %}";
+                  $.ajax({
+                      url: url,
+                      data: {
+                         'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+                         'status': id,
+                         'organizationid': {{org.id}}
+                      },
+                      dataType: 'json',
+                      complete: function (response) {
+                        if(id=="Approve"){
 
+                          alert("Approved this proposal");
+                          $("#Approve")[0].disabled = true;
+                          $('#Deny')[0].disabled = false;
+                          $('#Deny')[0].innerText = "Deny";
+                          $("#Approve")[0].innerText = "Approved"
+                        }else{
+
+                          alert("Denied this proposal");
+                          $('#Approve')[0].disabled = false;
+                          $('#Deny')[0].disabled = true;
+                          $('#Deny')[0].disabled = true;
+                          $('#Deny')[0].innerText = "Denied";
+                          $("#Approve")[0].innerText = "Approve"
+                        }
+                      },
+                      error: function () {
+                        $('#status').html('Bummer: there was an error!');
+                      },
+
+                  });
+                return false;
+
+            }
+            </script>
+          </div>
+          <div class="panel-body">
+
+
+        </div>
+        {% endif %}
+      {% endfor %}
         </ul>
       </div>
     </div>
   </div>
- -->
-
-
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          Existing Community Job Proposals
-        </div>
-        <div class="panel-body">
-          <ul class="list-group">
-              <div class="panel-heading">
-                  Active Proposals
-              </div>
-            {% for job in Job %}
-              {% if job.active %}
-                  <a class="list-group-item" href="{% url 'job_dash' job.id %}">
-                      <b>{{ job.name }}</b>
-                  </a>
-              {% endif %}
-            {% endfor %}
-              <br>
-              <div class="panel-heading">
-                  Inactive Proposals
-              </div>
-            {% for job in Job %}
-              {% if job.active %}
-              
-              {% else %}
-                  <a class="list-group-item" href="{% url 'job_dash' job.id %}">
-                      <b>{{ job.name }}</b>
-                  </a>
-              {% endif %}            
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-    </div>
-  
-    <div class="col-sm-6">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          Existing faculty Proposals
-        </div>
-        <div class="panel-body">
-          <ul class="list-group">
-              <div class="panel-heading">
-                  Active Proposals
-              </div>
-            {% for org in organizations %}
-              {% if org.active %}
-                  <a class="list-group-item" href="{% url 'organization_dash' org.id %}">
-                      <b>{{ org.name }}</b>
-                  </a>
-              {% endif %}
-            {% endfor %}
-              <br>
-              <div class="panel-heading">
-                  Inactive Proposals
-              </div>
-            {% for org in organizations %}
-              {% if not org.active %}
-                  <a class="list-group-item" href="{% url 'organization_dash' org.id %}">
-                      <b>{{ org.name }}</b>
-                  </a>
-              {% endif %}
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-    </div>
   </div>
 
 {% endblock content %}
+
+

@@ -44,14 +44,14 @@ class Category(models.Model):
 class Organization(models.Model):
     def __unicode__(self):
         return self.name
-        
+
     name = models.CharField('Organization Name',max_length=64)
     #narrative, including learning outcomes and general course description
     description = models.TextField('Organization Description')
     contactinfo = models.CharField('Contact Information',max_length=64, null=True)
 
     #selectedproposal = models.CharField('Selected Community Proposal',max_length=64, null=True)
-    selectedproposal = models.CharField('Select a proposal',max_length=64)
+    selectedproposal = models.CharField('Select a proposal',default="Select a proposal",max_length=64)
     #faculty/staff name; course title; department (provide example so they write it out fully,
     #i.e. Environmental and Ecological Engineering);
     facultystaffname = models.CharField('Faculty / Staff Name', max_length=64, null=True)
@@ -66,8 +66,8 @@ class Organization(models.Model):
 
     status = models.IntegerField(default = 0, choices = ((0, 'Pending'), (1, 'Approved'), (2, 'Disapproved'), (3, 'Closed')))
     active = models.BooleanField(default = True)
-    approve = models.BooleanField(default = True) # add to admin side, already showing on community agency side, not yet on faculty side
-
+    approve = models.BooleanField(default = False) # add to admin side, already showing on community agency side, not yet on faculty side
+    
 
     categories = models.ManyToManyField(Category, related_name = 'organizations')  # Category =-= Organization
     group = models.OneToOneField(Group) # Organization - Group
@@ -153,7 +153,8 @@ class Job(models.Model):
     #categories = models.CharField(default="nothing",null=True, max_length = 256)
     status = models.IntegerField(default = 0, choices = ((0, 'Pending'), (1, 'Approved'), (2, 'Disapproved'), (3, 'Closed')))
     active = models.BooleanField(default = True)
-    approve = models.BooleanField(default = True) # add to admin side, already showing on community agency side
+    approve = models.BooleanField(default = False) # add to admin side, already showing on community agency side
+    deny = models.BooleanField(default = False)
     #checkboxes
     activism = models.BooleanField(default = False)
     arts = models.BooleanField(default = False)
