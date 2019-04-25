@@ -14,8 +14,13 @@
 	margin=0;
 }
 .jumbotron{
+  	background-color: #FFD700;
+  	/*background-image: linear-gradient(lightgrey, gold);*/
+
+    color: black;
 	padding:50px 0 50px 0;
 }
+
 /* CSS used here will be applied after bootstrap.css */
 .badge-notify{
 	 background:#f04124;
@@ -121,15 +126,16 @@ background:#e1d8d8;
 }
 
 .jumbotron {
-	padding : 40px;
+
+	padding : 25px;
 }
 
 
 
 
 .panel-heading{
-	background-color:#333333;
-	padding: 10px;
+	background-color:#000000;
+	padding: 8px;
 	padding-left: 20px;
 	font-size:14pt;
 	color:white;
@@ -325,6 +331,6 @@ background:#e1d8d8;
     display: block;
 }
 
-div.hide { 
+div.hide {
     display: none;
 }

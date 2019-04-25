@@ -12,8 +12,7 @@
 <div class="jumbotron">
 
   <center>
-  <h3>{{ request.user }} <small>Dashboard</small></h3>
-  </center>
+<h3>{{ request.user }} <large></h3>  </center>
 
 </div>
 
@@ -30,85 +29,86 @@
     <div class="panel-heading">
       Existing Community Job Proposals
     </div>
-    <div class="panel-body">
+    <div class="panel-body" style="background-color:#ececec";>
       <ul class="list-group">
         {% for community_job in Job %}
           {% if community_job.active %}
           <div class="well well-sm information-body">
               <b>Organization name:</b> {{ community_job.name }} <br>
               <b>Description of job request:</b> {{ community_job.description }} <br>
-              <b>Contact information:</b> {{ community_job.contact_information }} <br>
+              <b>Contact information:</b> <a href="mailto:"{{ community_job.contact_information }}>{{ community_job.contact_information }}</a><br>
               <b>Deliverables:</b> {{ community_job.deliverable }} <br>
               <b>Student skills:</b> {{ community_job.skill_required }} <br>
               <b>Required time:</b> {{ community_job.hours_day }} <br>
               <b>Categories that project belongs to:</b>
                   {% if community_job.activism %}
-                      Activism & advocacy<br>
+                      <br>Activism & advocacy
                   {% endif %}
                   {% if community_job.arts %}
-                      Arts & culture<br>
+                      <br>Arts & culture
                   {% endif %}
                   {% if community_job.civil %}
-                      Civil rights & human rights<br>
+                      <br>Civil rights & human rights
                   {% endif %}
                   {% if community_job.school %}
-                      School readiness in Pre-K to 12 education<br>
+                      <br>School readiness in Pre-K to 12 education
                   {% endif %}
                   {% if community_job.crisis %}
-                      Crisis & conflict resolution<br>
+                      <br>Crisis & conflict resolution
                   {% endif %}
                   {% if community_job.criminal %}
-                      Criminal justice & legal representation<br>
+                      <br>Criminal justice & legal representation
                   {% endif %}
                   {% if community_job.disaster %}
-                      Disaster preparedness<br>
+                      <br>Disaster preparedness
                   {% endif %}
                   {% if community_job.economic %}
-                      Economic development<br>
+                      <br>Economic development
                   {% endif %}
                   {% if community_job.entrepreneurship %}
-                      Entrepreneurship<br>
+                      <br>Entrepreneurship
                   {% endif %}
                   {% if community_job.environment %}
-                      Environment & sustainability<br>
+                      <br>Environment & sustainability
                   {% endif %}
                   {% if community_job.food %}
-                      Food security<br>
+                      <br>Food security
                   {% endif %}
                   {% if community_job.housing %}
-                      Housing & homelessness<br>
+                      <br>Housing & homelessness
                   {% endif %}
                   {% if community_job.immigrants %}
-                      Immigrants & migrant worker rights<br>
+                      <br>Immigrants & migrant worker rights
                   {% endif %}
                   {% if community_job.individual %}
-                      Individual & community health<br>
+                      <br>Individual & community health
                   {% endif %}
                   {% if community_job.mental %}
-                      Mental health<br>
+                      <br>Menta<br>l health
                   {% endif %}
                   {% if community_job.poverty %}
-                      Poverty alleviation<br>
+                      <br>Poverty alleviation
                   {% endif %}
                   {% if community_job.substance %}
-                      Substance abuse & recovery<br>
+                      <br>Substance abuse & recovery
                   {% endif %}
                   {% if community_job.STEM %}
-                      STEM education<br>
+                      <br>STEM education
                   {% endif %}
                   {% if community_job.transportation %}
-                      Transportation<br>
+                      <br>Transportation
                   {% endif %}
                   {% if community_job.veterans %}
-                      Veterans<br>
+                      <br>Veterans
                   {% endif %}
                   {% if community_job.voting %}
-                      Voting<br>
+                      <br>Voting>
                   {% endif %}
                   {% if community_job.other %}
-                      {{community_job.other}}<br>
+                      <br>{{community_job.other}}
                   {% endif %}
 
+                   <br>
                    <br>
               {% if community_job.approve %}
               <button type="button" id ="Approve_job{{community_job.name}}" name="{{community_job.name}}" value= "{{community_job.id}}" class="btn btn-primary" disabled>Approved</button>
@@ -180,51 +180,83 @@
       <div class="panel-heading">
         Existing Faculty Proposals
       </div>
-      <div class="panel-body">
+      <div class="panel-body" style="background-color:#ececec";>
         <ul class="list-group">
-        {% for org in organizations %}
-          {% if org.active %}
+        {% for fac_proposal in organizations %}
+          {% if fac_proposal.active %}
           <div class="well well-sm information-body">
-              <b>Course Name:</b> {{ org.name }} <br>
-              <b>Course Title:</b> {{ org.coursetitle }} <br>
-              <b>Faculty/Staff Name:</b> {{ org.facultystaffname }} <br>
-              <b>Website:</b> {{ org.url }} <br>
-              <b>Department:</b> {{ org.department }} <br>
-              <b>Contact Informations:</b> {{ org.phone_number }} <br> <!--Needs change-->
-              <b>Description:</b>  {{ org.description }} <br>
-              <b>Student Levels:</b>  {{ org.description }} <br> <!--Needs change-->
-              <b>Proposal Selected:</b>  {{ org.selectedproposal }} <br>
+              <b>Course Name:</b> {{ fac_proposal.name }} <br>
+              <b>Course Title:</b> {{ fac_proposal.coursetitle }} <br>
+              <b>Faculty/Staff Name:</b> {{ fac_proposal.facultystaffname }} <br>
+              <b>Website:</b> {{ fac_proposal.url }} <br>
+              <b>Department:</b> {{ fac_proposal.department }} <br>
+              <b>Contact Informations:</b> <a href="mailto:"{{ fac_proposal.contactinfo }}>{{ fac_proposal.contactinfo }}</a><br>
+              <b>Description:</b>  {{ fac_proposal.description }} <br>
+              <b>Student Levels:</b>  
+                 {% if fac_proposal.freshman %}
+                   Freshman<br>
+                 {% endif %}
+                 {% if fac_proposal.sophomore %}
+                   Sophomore<br>
+                 {% endif %}
+                 {% if fac_proposal.junior %}
+                   Junior<br>
+                 {% endif %}
+                 {% if fac_proposal.senior %}
+                   Senior<br>
+                 {% endif %}
+                 {% if fac_proposal.grad %}
+                   Graduate<br>
+                 {% endif %}
+              <b>Proposal Selected:</b>  {{ fac_proposal.selectedproposal }} <br>
               <br>
-              <button type="button" id ="Approve" class="btn btn-primary" onClick="doApprove(this.id)">Approve</button>
+<!--               <button type="button" id ="Approve" class="btn btn-primary" onClick="doApprove(this.id)">Approve</button>
               <button type="button" id ="Deny" class="btn btn-primary" onClick="doApprove(this.id)">Deny</button>
 
+ -->
+
+              {% if fac_proposal.approve %}
+              <button type="button" id ="Approve_job{{fac_proposal.name}}" name="{{fac_proposal.name}}" value= "{{fac_proposal.id}}" class="btn btn-primary" disabled>Approved</button>
+              {% else %}
+              <button type="button" id ="Approve_job{{fac_proposal.name}}" name="{{fac_proposal.name}}" value= "{{fac_proposal.id}}" class="btn btn-primary" onClick="decide_proposal_approve(this.id, this.name, this.value)">Approve</button>
+              {% endif %}
+
+              {% if fac_proposal.deny %}
+              <button type="button" id ="Deny_job{{fac_proposal.name}}" name="{{fac_proposal.name}}" value= "{{fac_proposal.id}}" class="btn btn-primary" disabled>Denied</button>
+              {% else %}
+              <button type="button" id ="Deny_job{{fac_proposal.name}}" name="{{fac_proposal.name}}" value= "{{fac_proposal.id}}" class="btn btn-primary" onClick="decide_proposal_approve(this.id, this.name, this.value)">Deny</button>
+              {% endif %}
+
+
+
               <script type="text/javascript">
-              function doApprove(id){
-                  var url = "{% url 'organization_approve_update' %}";
+              function decide_proposal_approve(id, fac_proposal_name, organization_id){
+                  var url = "{% url 'fac_proposal_approve_update' %}";
                   $.ajax({
                       url: url,
                       data: {
                          'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                          'status': id,
-                         'organizationid': {{org.id}}
+                         'organization_id': organization_id,
                       },
                       dataType: 'json',
                       complete: function (response) {
-                        if(id=="Approve"){
+                        if(id=="Approve_job"+fac_proposal_name){
 
                           alert("Approved this proposal");
-                          $("#Approve")[0].disabled = true;
-                          $('#Deny')[0].disabled = false;
-                          $('#Deny')[0].innerText = "Deny";
-                          $("#Approve")[0].innerText = "Approved"
+                          $("#Approve_job{{fac_proposal_name}}").context.activeElement.disabled = true;
+                          $('#Deny_job{{fac_proposal_name}}').context.activeElement.disabled = false;
+                          location.reload()
+                          // $('#Deny_job{{job_name}}').context.activeElement.innerText = "Deny";
+                          // $("this").context.activeElement.innerText = "Approved"
                         }else{
 
                           alert("Denied this proposal");
-                          $('#Approve')[0].disabled = false;
-                          $('#Deny')[0].disabled = true;
-                          $('#Deny')[0].disabled = true;
-                          $('#Deny')[0].innerText = "Denied";
-                          $("#Approve")[0].innerText = "Approve"
+                          $('#Approve_job{{fac_proposal_name}}').context.activeElement.disabled = false;
+                          $('#Deny_job{{fac_proposal_name}}').context.activeElement.disabled = true;
+                          location.reload()
+                          // $('#Deny_job{{job_name}}').context.activeElement.innerText = "Denied";
+                          // $("#Approve_job{{job_name}}").context.activeElement.innerText = "Approve"
                         }
                       },
                       error: function () {
@@ -237,10 +269,7 @@
             }
             </script>
           </div>
-          <div class="panel-body">
 
-
-        </div>
         {% endif %}
       {% endfor %}
         </ul>

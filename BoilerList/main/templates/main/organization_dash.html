@@ -10,12 +10,12 @@
 
 <div class="jumbotron">
   <center>
-    <h3>{{ organization.name }} <small>Dashboard</small></h3>
+    <h3>{{ organization.name }} <small></small></h3>
   </center>
 </div>
 
 <div class="form-group">
-  <a href="{% url 'organization_settings' organization.id %}"><button class="btn btn-info">Organization Settings</button></a>
+  <a href="{% url 'organization_settings' organization.id %}"><button class="btn btn-info">Modify your proposal</button></a>
   <a href="{% url 'user_dash' %}"><button class="btn btn-info">Back</button></a>
   <!--<a href="{% url 'organization_detail' organization.id %}"><button class="btn btn-info">View Public Profile</button></a>-->
 </div>
@@ -26,9 +26,9 @@
     <div class="panel-heading">
         <h3 class="panel-title">Information about the Proposal</h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body" style="background-color:#ececec";>
         <div class="well well-sm information-body">
-            <b>Service team name</b>: {{organization.name}}
+            <b>Course name</b>: {{organization.name}}
         </div>
         <div class="well well-sm information-body">
             <b>Course title</b>: {{organization.coursetitle}}
@@ -78,17 +78,20 @@
     <div class="panel-heading">
         <h3 class="panel-title">Proposal activation status</h3>
     </div>
-     <div class="panel-body">
+     <div class="panel-body"  style="background-color:#ececec";>
            <span style="padding-left:50px;"></span>
            <b> Status</b>: {% if organization.active %}
-                                <b>Active</b>
+                                <b>Public</b>
                            {% else %}
-                                <b>Deactive</b>
+                                <b>Private</b>
                            {% endif %}
             <span style="padding-left:140px;"></span>
-           <button type="button" id ="Active" class="btn btn-primary" onClick="doTask(this.id)">Activate</button>
-           <button type="button" id ="Deactive" class="btn btn-primary" onClick="doTask(this.id)">Deactivate</button>
-           <button type="button" id ="Dissolve" class="btn btn-primary" onclick="confirm()">Dissolve</button>
+           {% if organization.active %}
+           <button type="button" id ="Deactive" class="btn btn-primary" onClick="doTask(this.id)">Make Private</button>
+           {% else %}
+           <button type="button" id ="Active" class="btn btn-primary" onClick="doTask(this.id)">Make Public</button>
+           {% endif %}
+           <button type="button" id ="Dissolve" class="btn btn-primary" onclick="confirm()">Delete</button>
            <script>
                function confirm(){
                     var answer = prompt("Key in \"yes\" to confirm dissolve the proposal.")
@@ -149,6 +152,28 @@ return false;
      </div>
     </div>
     </div>
+
+    <div class="col-sm-7">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Faculty proposal approval status</h3>
+        </div>
+         <div class="panel-body" style="background-color:#ececec";>
+               <span style="padding-left:50px;"></span>
+               <b> Status</b>: {% if organization.approve %}
+                                    <b>Approved</b>
+                               {% elif organization.deny %}
+                                    <b>Denied</b>
+                               {% else %}
+                                    <b>Pending</b>
+                               {% endif %}
+        </div>
+      </div>
+    </div>
+
+
+
+
 </div>
 <script type='text/javascript' src="{{ STATIC_URL }}js/JobRequestOverlay.js"></script>
 {% endblock content %}

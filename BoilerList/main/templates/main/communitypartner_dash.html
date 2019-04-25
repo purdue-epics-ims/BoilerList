@@ -21,32 +21,85 @@
 </div>
 
 <div class="row">
+  <!-- <div class="col-sm-6"> -->
+  <!-- {% dash_notifications "Notifications" unread_notifications read_notifications %} -->
+  <!-- </div> -->
   <div class="col-sm-6">
-  {% dash_notifications "Notifications" unread_notifications read_notifications %}
-  </div>
+    <div class ="panel panel-primary">
+      <div class="panel-heading">
+        Notifications
+      </div>
+        <div class="panel-body" style="background-color:#ececec";>
+
+
+            {% for job in Job %}
+            <ul class="list-group">
+              <div class="panel-heading">
+                  {{ job.name }}
+              </div>
+              {% for fac_proposal in organizations %}
+                {% if fac_proposal.selectedproposal == job.name %} 
+                  {% if fac_proposal.active %}
+                    {% if fac_proposal.approve %}
+                      <div class="well well-sm information-body">
+                        <b>Course Name:</b> {{ fac_proposal.name }} <br>
+                        <b>Course Title:</b> {{ fac_proposal.coursetitle }} <br>
+                        <b>Faculty/Staff Name:</b> {{ fac_proposal.facultystaffname }} <br>
+                        <b>Website:</b> {{ fac_proposal.url }} <br>
+                        <b>Department:</b> {{ fac_proposal.department }} <br>
+                        <b>Contact Informations:</b> <a href="mailto:"{{ fac_proposal.contactinfo }}>{{ fac_proposal.contactinfo }}</a> <br>
+                        <b>Description:</b>  {{ fac_proposal.description }} <br>
+                        <b>Student Levels:</b>  
+                           {% if fac_proposal.freshman %}
+                             Freshman<br>
+                           {% endif %}
+                           {% if fac_proposal.sophomore %}
+                             Sophomore<br>
+                           {% endif %}
+                           {% if fac_proposal.junior %}
+                             Junior<br>
+                           {% endif %}
+                           {% if fac_proposal.senior %}
+                             Senior<br>
+                           {% endif %}
+                           {% if fac_proposal.grad %}
+                             Graduate<br>
+                           {% endif %}
+                        <!-- <b>Proposal Selected:</b>  {{ fac_proposal.selectedproposal }} <br> -->
+                        <br>
+                      </div>
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div> 
 
   <div class="col-sm-6">
     <div class="panel panel-primary">
       <div class="panel-heading">
         Your Jobs
       </div>
-        <div class="panel-body">
+      <div class="panel-body" style="background-color:#ececec";>
           <ul class="list-group">
               <div class="panel-heading">
-                  Active Proposals
+                  Public Proposals
               </div>
-            {% for job in Job %}
+              {% for job in Job %}
               {% if job.active %}
                   <a class="list-group-item" href="{% url 'job_dash' job.id %}">
                       <b>{{ job.name }}</b>
                   </a>
               {% endif %}
-            {% endfor %}
+              {% endfor %}
               <br>
               <div class="panel-heading">
-                  Inactive Proposals
+                  Private Proposals
               </div>
-            {% for job in Job %}
+              {% for job in Job %}
               {% if job.active %}
               
               {% else %}
@@ -54,7 +107,7 @@
                       <b>{{ job.name }}</b>
                   </a>
               {% endif %}            
-            {% endfor %}
+              {% endfor %}
           </ul>
                     <a href = "{% url 'job_creation' %}" class="btn btn-danger"> <i class="fa fa-plus"></i> Create Job</a>
         </div>

@@ -9,7 +9,7 @@
 <div class="panel-heading">
   Login
 </div>
-<div class = "jumbotron">
+<div class = "jumbotron" style="background-color:#ececec";>
   <br>
   {% if form.errors %}
   <div class="alert alert-error">
@@ -47,7 +47,7 @@
       <span class="pull-right">
         
         <p>Not a user? 
-          <a href="{% url 'user_create' "community" %}">Create an Account</a>
+          <a href="{% url 'user_create' 'community' %}">Create an Account</a>
         </p>
         <p>Forgot your password? 
           <a href="{% url 'password_reset_recover' %}">Reset Password</a>

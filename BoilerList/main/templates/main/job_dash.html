@@ -28,7 +28,7 @@
     <div class="panel-heading">
         <h3 class="panel-title">Information about the Job</h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body"  style="background-color:#ececec";>
         <div class="well well-sm information-body">
             <b>Organization name</b>: {{job.client_organization}}
         </div>
@@ -126,12 +126,12 @@
     <div class="panel-heading">
         <h3 class="panel-title">Project activation status</h3>
     </div>
-     <div class="panel-body">
+     <div class="panel-body"  style="background-color:#ececec";>
            <span style="padding-left:50px;"></span>
            <b> Status</b>: {% if job.active %}
-                                <b>Active</b>
+                                <b>Public</b>
                            {% else %}
-                                <b>Deactive</b>
+                                <b>Private</b>
                            {% endif %}
             <span style="padding-left:140px;"></span>
 <!--             {% if job.approve %}
@@ -140,10 +140,12 @@
             {% else %}
                <button type="button" id ="Approve" class="btn btn-primary" >Send for approval</button>
             {% endif %} -->
-
-           <button type="button" id ="Active" class="btn btn-primary" onClick="doTask(this.id)">Activate</button>
-           <button type="button" id ="Deactive" class="btn btn-primary" onClick="doTask(this.id)">Deactivate</button>
-           <button type="button" id ="Dissolve" class="btn btn-primary" onclick="confirm()">Dissolve</button>
+           {% if job.active %} 
+           <button type="button" id ="Deactive" class="btn btn-primary" onClick="doTask(this.id)">Make Private</button>
+           {% else %}
+           <button type="button" id ="Active" class="btn btn-primary" onClick="doTask(this.id)">Make Public</button>
+           {% endif %}
+           <button type="button" id ="Dissolve" class="btn btn-primary" onclick="confirm()">Delete</button>
            <script>
                function confirm(){
                     var answer = prompt("Key in \"yes\" to confirm dissolve the proposal.")
@@ -215,7 +217,7 @@ return false;
     <div class="panel-heading">
         <h3 class="panel-title">Job approval status</h3>
     </div>
-     <div class="panel-body">
+     <div class="panel-body"  style="background-color:#ececec";>
            <span style="padding-left:50px;"></span>
            <b> Status</b>: {% if job.approve %}
                                 <b>Approved</b>
@@ -223,36 +225,10 @@ return false;
                                 <b>Pending</b>
                            {% endif %}
     </div>
-        </div>
-        </div>
-    
-  <div class="col-sm-7">
-    <div class="panel panel-primary">
-
-      <div class="panel-heading">
-          Interested Organizations
-      </div>
-      <div class="panel-body">
-        <ul class="list-group dash-list">
-            <form action="{% url 'job_dash' job.id%}" method ="post">
-            {% for jobrequest in applied_jobrequests %}
-            <li class="list-group-item">
-                <img class="icon" src="{{ jobrequest.organization.icon.url }}"></img>
-                <a href="{% url 'organization_detail' jobrequest.organization.id %}">{{jobrequest.organization.name}}</a>
-                {%csrf_token%}
-                {% if not jobrequest.confirmed and not job.closed %}
-                <button class="btn btn-success pull-right" type="submit" name="jobrequest_id" value="{{jobrequest.id}}">Confirm</button>
-                {% elif jobrequest.confirmed %}
-                <span class="label label-success pull-right">Confirmed</span>
-                {% endif %}
-
-            </li>
-          {% endfor %}
-            </form>
-        </ul>
-      </div>
     </div>
-  </div>
+    </div>
+    
+
 </div>
 
 <!--this message appears for new user only -->

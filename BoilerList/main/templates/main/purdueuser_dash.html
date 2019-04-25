@@ -10,11 +10,9 @@
 {% endif %}
 
 <div class="jumbotron">
-
   <center>
     <h3>{{ request.user }} <small>Dashboard</small></h3>
   </center>
-
 </div>
 
 <div class="form-group">
@@ -30,13 +28,14 @@
       <div class="panel-heading">
         Existing Community Job Proposals
       </div>
-      <div class="panel-body">
+      <div class="panel-body" style="background-color:#ececec";>
         <ul class="list-group">
           {% for jobs in Job %}
+            {% if jobs.active and jobs.approve %}
             <div class="well well-sm information-body">
                 <b>Organization name:</b> {{ jobs.name }} <br>
                 <b>Description of job request:</b> {{ jobs.description }} <br>
-                <b>Contact information:</b> {{ jobs.contact_information }} <br>
+                <b>Contact information:</b><a href="mailto:"{{ jobs.contact_information }}>{{ jobs.contact_information }}</a> <br>
                 <b>Deliverables:</b> {{ jobs.deliverable }} <br>
                 <b>Student skills:</b> {{ jobs.skill_required }} <br>
                 <b>Required time:</b> {{ jobs.hours_day }} <br>
@@ -110,6 +109,7 @@
             </div>
           <!-- <a class="list-group-item" href="{% url 'job_dash' jobs.id %}"> -->
           <!-- </a> -->
+          {% endif %}
           {% endfor %}
           <!-- <br>
           <a href='/job_creation' class="btn btn-danger"> <i class = "fa fa-plus"></i> Create Job</a> -->
@@ -123,10 +123,10 @@
       <div class="panel-heading">
         Your Faculty Proposals
       </div>
-      <div class="panel-body">
+      <div class="panel-body" style="background-color:#ececec";>
         <ul class="list-group">
             <div class="panel-heading">
-                Active Proposals
+                Public Proposals
             </div>
           {% for org in organizations %}
             {% if org.active %}
@@ -137,7 +137,7 @@
           {% endfor %}
             <br>
             <div class="panel-heading">
-                Inactive Proposals
+                Private Proposals
             </div>
           {% for org in organizations %}
             {% if not org.active %}

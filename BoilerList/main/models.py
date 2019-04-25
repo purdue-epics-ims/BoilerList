@@ -67,7 +67,7 @@ class Organization(models.Model):
     status = models.IntegerField(default = 0, choices = ((0, 'Pending'), (1, 'Approved'), (2, 'Disapproved'), (3, 'Closed')))
     active = models.BooleanField(default = True)
     approve = models.BooleanField(default = False) # add to admin side, already showing on community agency side, not yet on faculty side
-    
+    deny = models.BooleanField(default = False) 
 
     categories = models.ManyToManyField(Category, related_name = 'organizations')  # Category =-= Organization
     group = models.OneToOneField(Group) # Organization - Group

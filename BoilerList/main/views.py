@@ -23,18 +23,24 @@ from django.shortcuts import redirect
 
 
 @login_required
-def organization_approve_update(request):
+def fac_proposal_approve_update(request):
     status = request.GET['status']
-    organization_id = request.GET['organizationid']
+    organization_id = request.GET['organization_id']
 
-    if status == 'Approve':
-        flag = True
+    approve_flag = False
+    deny_flag = False
+    fac_proposal = Organization.objects.get(pk=organization_id)
+    if status =='Approve_job'+fac_proposal.name:
+        print("Inside true")
+        approve_flag = True
     else:
-        flag = False
-    organization = Organization.objects.get(pk=organization_id)
+        deny_flag = True
     try:
-        organization.approve = flag
-        organization.save()
+        fac_proposal.approve = approve_flag
+        fac_proposal.deny = deny_flag
+        print("-----fac_proposal")
+        print(fac_proposal.approve)
+        fac_proposal.save()
         #write back
         return HttpResponse(status)
     except Exception as e:
@@ -109,7 +115,9 @@ def login(request):
 def user_dash(request):
     user = request.user
     read_notifications = list(request.user.notifications.read())
+    # print(read_notifications)
     unread_notifications = list(request.user.notifications.unread())
+    # print(unread_notifications)
     request.user.notifications.mark_all_as_read()
 
     #If this is the first time the user has visited this page, show a dialog
@@ -147,7 +155,7 @@ def user_dash(request):
             try:
                 orgs.append(group.organization)
             except Organization.DoesNotExist:
-                group.delete()                  #DELETE THE GROUP IF IT HAS NO ORGANIZATION (FACULTY PROPOSAL) IN IT
+                group.delete() 
 
         jobs = Job.objects.all().filter(active=True)
         #print(type(jobs))
@@ -162,10 +170,22 @@ def user_dash(request):
                        'show_dialog':show_dialog
                        })
     else:
+
+        orgs = []
+        for group in Group.objects.all():
+            try:
+                orgs.append(group.organization)
+            except Organization.DoesNotExist:
+                group.delete()    
         jobs = user.jobs.all()
+        print("------jobs")     
+        print(jobs)
+        print("------orgs")                 #DELETE THE GROUP IF IT HAS NO ORGANIZATION (FACULTY PROPOSAL) IN IT
+        print(orgs)
         return render(request, 'main/communitypartner_dash.html',
                      {'user_dash': user,
                        'Job':jobs,
+                       'organizations': orgs,
                        'unread_notifications':unread_notifications,
                        'read_notifications':read_notifications,
                        'show_dialog':show_dialog
@@ -582,6 +602,7 @@ def organization_status_update(request):
     status = request.GET['status']
     organization_id = request.GET['Organizationid']
     if status == 'Active':
+        print("Inside status active")
         flag = True
     else:
         flag = False
